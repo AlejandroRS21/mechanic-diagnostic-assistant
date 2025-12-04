@@ -1,0 +1,57 @@
+graph TD
+    Start[Mechanic Opens Assistant] --> Greeting[Display Greeting]
+    Greeting --> Input[Mechanic Describes Problem]
+    
+    Input --> HasCode{Has OBD Code?}
+    
+    HasCode -->|Yes| SearchCode[Tool: search_diagnostic_code]
+    HasCode -->|No| AnalyzeSymptoms[Analyze Symptoms with NLP]
+    
+    SearchCode --> RAG1[RAG: Query Code Information]
+    AnalyzeSymptoms --> RAG2[RAG: Search Similar Symptoms]
+    
+    RAG1 --> GenerateHypothesis[Generate Diagnosis Hypothesis]
+    RAG2 --> GenerateHypothesis
+    
+    GenerateHypothesis --> CheckVehicle{Vehicle Info Available?}
+    
+    CheckVehicle -->|Yes| QueryIssues[Tool: query_known_issues]
+    CheckVehicle -->|No| AskVehicleInfo[Ask for Vehicle Details]
+    
+    AskVehicleInfo --> QueryIssues
+    QueryIssues --> FollowUp[Ask Follow-up Questions]
+    
+    FollowUp --> Confirmed{Diagnosis Confirmed?}
+    
+    Confirmed -->|No| FollowUp
+    Confirmed -->|Yes| FindParts[Tool: find_replacement_parts]
+    
+    FindParts --> ShowOptions[Present OEM vs Aftermarket Options]
+    ShowOptions --> SelectParts{Parts Selected?}
+    
+    SelectParts -->|No| FindParts
+    SelectParts -->|Yes| CalcCost[Tool: calculate_repair_cost]
+    
+    CalcCost --> ReviewCost{Cost Acceptable?}
+    
+    ReviewCost -->|No| FindParts
+    ReviewCost -->|Yes| GenEstimate[Tool: generate_estimate]
+    
+    GenEstimate --> PresentEstimate[Present Formal Estimate]
+    
+    PresentEstimate --> NextAction{What Next?}
+    
+    NextAction -->|Revise| FindParts
+    NextAction -->|New Diagnosis| Input
+    NextAction -->|Complete| End[End Session]
+    
+    style Start fill:#e1f5e1
+    style End fill:#ffe1e1
+    style SearchCode fill:#fff4e1
+    style FindParts fill:#fff4e1
+    style CalcCost fill:#fff4e1
+    style GenEstimate fill:#fff4e1
+    style QueryIssues fill:#fff4e1
+    style RAG1 fill:#e1f0ff
+    style RAG2 fill:#e1f0ff
+    style GenerateHypothesis fill:#f0e1ff

@@ -1,0 +1,342 @@
+"""
+Main Mechanic Diagnostic Agent using LangChain ReAct pattern.
+"""
+
+from typing import List, Dict, Any, Optional
+from langchain.agents import AgentExecutor, create_react_agent
+from langchain_openai import ChatOpenAI
+from langchain.memory import ConversationBufferMemory
+from langchain.prompts import PromptTemplate
+from langchain.schema import AgentAction, AgentFinish
+
+from src.agent.tools import get_all_tools
+from src.agent.prompts import SYSTEM_PROMPT, GREETING
+from src.rag.knowledge_base import initialize_knowledge_base
+from src.rag.retriever import KnowledgeRetriever
+from src.utils.helpers import get_logger
+from src.utils.config import OPENROUTER_API_KEY, TOP_K_RESULTS
+from src.utils.model_manager import ModelManager
+
+logger = get_logger(__name__)
+
+
+class MechanicAgent:
+    """
+    Intelligent diagnostic agent for automotive mechanics.
+    Uses ReAct pattern with tools and RAG knowledge base.
+    """
+    
+    def __init__(
+        self,
+        temperature: float = 0.7,
+        verbose: bool = True
+    ):
+        """
+        Initialize the mechanic diagnostic agent.
+        
+        Args:
+            model_name: LLM model to use
+            temperature: Model temperature (0-1)
+            verbose: Whether to print agent reasoning
+        """
+        logger.info("Initializing Mechanic Diagnostic Agent...")
+        
+        # Initialize Model Manager
+        self.model_manager = ModelManager()
+        self.current_model_name = self.model_manager.get_current_model_id()
+        
+        if not self.current_model_name:
+            raise ValueError("No available models found from OpenRouter")
+            
+        logger.info(f"Using initial model: {self.current_model_name}")
+        
+        # Initialize LLM via OpenRouter
+        self.llm = self._create_llm()
+        
+        # Initialize knowledge base and retriever
+        logger.info("Loading knowledge base...")
+        self.knowledge_base = initialize_knowledge_base(rebuild=False)
+        self.retriever = KnowledgeRetriever(
+            self.knowledge_base.get_vectorstore(),
+            k=TOP_K_RESULTS
+        )
+        
+        # Get tools
+        self.tools = get_all_tools()
+        
+        # Initialize conversation memory
+        self.memory = ConversationBufferMemory(
+            memory_key="chat_history",
+            return_messages=True,
+            output_key="output"
+        )
+        
+        # Create agent
+        self.agent_executor = self._create_agent(verbose=verbose)
+        
+        # Track agent steps for UI display
+        self.last_steps: List[Dict] = []
+        
+        logger.info("✅ Mechanic Agent initialized successfully")
+    
+        logger.info("✅ Mechanic Agent initialized successfully")
+    
+    def _create_llm(self) -> ChatOpenAI:
+        """Create LLM instance with current model."""
+        if not OPENROUTER_API_KEY:
+            raise ValueError("OPENROUTER_API_KEY is missing. Please add it to your .env file.")
+            
+        return ChatOpenAI(
+            model=self.current_model_name,
+            temperature=0.7,
+            openai_api_key=OPENROUTER_API_KEY,
+            openai_api_base="https://openrouter.ai/api/v1",
+            max_tokens=1024
+        )
+
+    def _create_agent(self, verbose: bool = True) -> AgentExecutor:
+        """Create the ReAct agent with tools."""
+        
+        # Create ReAct prompt template
+        template = f"""{SYSTEM_PROMPT}
+
+You have access to the following tools:
+
+{{tools}}
+
+Use the following format:
+
+Question: the input question or problem from the mechanic
+Thought: think about what information you need and which tools to use
+Action: the action to take, should be one of [{{tool_names}}]
+Action Input: the input to the action
+Observation: the result of the action
+... (this Thought/Action/Action Input/Observation can repeat N times)
+Thought: I now know the final answer or next step
+Final Answer: the final answer to the original input question
+
+IMPORTANT:
+- You must ALWAYS use the exact tool names listed above.
+- If you decide to use a tool, you MUST use the "Action:" and "Action Input:" keywords.
+- If you have enough information, you MUST use the "Final Answer:" keyword.
+- Do NOT output numbered lists or conversational text inside the Thought block unless it leads to an Action or Final Answer.
+- Ensure your "Action Input" is a simple string.
+
+Additionally, you can consult the knowledge base for relevant information. The knowledge base contains:
+- OBD-II diagnostic codes
+- Common automotive symptoms and causes
+- Repair procedures
+
+Begin! Remember to be professional, technical, and helpful.
+
+Previous conversation:
+{{chat_history}}
+
+Question: {{input}}
+Thought: {{agent_scratchpad}}"""
+        
+        prompt = PromptTemplate(
+            template=template,
+            input_variables=["input", "tools", "tool_names", "agent_scratchpad", "chat_history"]
+        )
+        
+        # Create agent
+        agent = create_react_agent(
+            llm=self.llm,
+            tools=self.tools,
+            prompt=prompt
+        )
+        
+        # Get Langfuse callback if available
+        try:
+            from src.monitoring.langfuse_config import get_langfuse_handler
+            langfuse_handler = get_langfuse_handler()
+            callbacks = [langfuse_handler] if langfuse_handler else []
+        except:
+            callbacks = []
+        
+        # Create executor with callbacks
+        agent_executor = AgentExecutor(
+            agent=agent,
+            tools=self.tools,
+            memory=self.memory,
+            verbose=verbose,
+            max_iterations=15,  # Increased from 10 to allow more complex reasoning
+            handle_parsing_errors=True,
+            return_intermediate_steps=True,
+            callbacks=callbacks  # Add Langfuse tracing
+        )
+        
+        return agent_executor
+    
+    def consult_knowledge_base(self, query: str) -> tuple[str, List[Dict]]:
+        """
+        Consult the RAG knowledge base for relevant information.
+        
+        Args:
+            query: Search query
+            
+        Returns:
+            Tuple of (Formatted context, List of sources)
+        """
+        logger.info(f"Consulting knowledge base: {query}")
+        context, sources = self.retriever.retrieve_with_sources(query)
+        return context, sources
+    
+    def chat(self, message: str) -> Dict[str, Any]:
+        """
+        Send a message to the agent and get a response.
+        
+        Args:
+            message: Message from the mechanic
+            
+        Returns:
+            Dictionary with response and metadata
+        """
+        logger.info(f"Processing message: {message[:100]}...")
+        
+        # Augment input with knowledge base context if relevant
+        # (Check if message contains keywords that should trigger KB search)
+        kb_context = ""
+        sources = []
+        keywords = ["code", "P0", "symptom", "noise", "leak", "problem", "issue", "manual", "guide", "pdf"]
+        if any(keyword in message.lower() for keyword in keywords):
+            logger.info("Augmenting with knowledge base context...")
+            kb_context, sources = self.consult_knowledge_base(message)
+        
+        # Prepare full input
+        if kb_context:
+            full_input = f"{message}\n\nRelevant knowledge base information:\n{kb_context}"
+        else:
+            full_input = message
+        
+        # Retry loop for model failover
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                # Run agent
+                result = self.agent_executor.invoke({"input": full_input})
+                
+                # Extract response and intermediate steps
+                response = result.get("output", "I'm sorry, I couldn't process that request.")
+                intermediate_steps = result.get("intermediate_steps", [])
+                
+                # Format intermediate steps for UI
+                self.last_steps = []
+                for step in intermediate_steps:
+                    if isinstance(step, tuple) and len(step) == 2:
+                        action, observation = step
+                        if isinstance(action, AgentAction):
+                            self.last_steps.append({
+                                "tool": action.tool,
+                                "tool_input": action.tool_input,
+                                "observation": str(observation)[:200]  # Truncate for display
+                            })
+                
+                return {
+                    "response": response,
+                    "steps": self.last_steps,
+                    "sources": sources,
+                    "success": True
+                }
+            
+            except Exception as e:
+                error_msg = str(e)
+                logger.error(f"Error in agent chat (Attempt {attempt+1}/{max_retries}): {error_msg}")
+                
+                # Check for rate limit or API errors
+                # Broaden check to include generic provider errors
+                error_lower = error_msg.lower()
+                retry_keywords = ["429", "rate limit", "insufficient_quota", "provider", "error", "fail", "timeout", "connection"]
+                
+                if any(keyword in error_lower for keyword in retry_keywords):
+                    logger.warning(f"API Error with model {self.current_model_name}: {error_msg}")
+                    logger.warning("Switching model...")
+                    self.model_manager.mark_current_failed()
+                    
+                    new_model = self.model_manager.get_current_model_id()
+                    if new_model and new_model != self.current_model_name:
+                        self.current_model_name = new_model
+                        logger.info(f"Switching to new model: {self.current_model_name}")
+                        
+                        # Recreate LLM and Agent
+                        self.llm = self._create_llm()
+                        self.agent_executor = self._create_agent(verbose=True)
+                        continue
+                
+                # If it's the last attempt or not a recoverable error
+                if attempt == max_retries - 1:
+                    return {
+                        "response": f"I encountered an error and ran out of retries: {str(e)}. Please try again later.",
+                        "steps": [],
+                        "success": False,
+                        "error": str(e)
+                    }
+        
+        # Fallback if loop finishes without return
+        return {
+            "response": "I encountered an error and could not process your request after multiple attempts.",
+            "steps": [],
+            "success": False,
+            "error": "Max retries exceeded"
+        }
+    
+    def reset_conversation(self):
+        """Reset the conversation memory."""
+        self.memory.clear()
+        self.last_steps = []
+        logger.info("Conversation reset")
+    
+    def get_greeting(self) -> str:
+        """Get the initial greeting message."""
+        return GREETING
+    
+    def get_last_steps(self) -> List[Dict]:
+        """Get the last agent reasoning steps."""
+        return self.last_steps
+
+
+def create_agent(model_name: str = None, verbose: bool = True) -> MechanicAgent:
+    """
+    Factory function to create a mechanic diagnostic agent.
+    
+    Args:
+        model_name: Optional model name to override default
+        verbose: Whether to enable verbose logging
+        
+    Returns:
+        Initialized MechanicAgent
+    """
+    try:
+        agent = MechanicAgent(verbose=verbose)
+        return agent
+    except Exception as e:
+        logger.error(f"Failed to create agent: {e}")
+        raise
+
+
+if __name__ == "__main__":
+    # Test the agent
+    print("Initializing agent...")
+    print("-" * 60)
+    
+    agent = create_agent(verbose=True)
+    
+    print("\n" + agent.get_greeting())
+    print("\n" + "-" * 60)
+    
+    # Test interaction
+    test_message = "I have a Toyota Corolla 2018 with code P0420"
+    print(f"\nTest message: {test_message}")
+    print("-" * 60)
+    
+    response = agent.chat(test_message)
+    
+    print(f"\nAgent response:\n{response['response']}")
+    
+    if response['steps']:
+        print(f"\nTools used: {len(response['steps'])}")
+        for step in response['steps']:
+            print(f"  - {step['tool']}")
+    
+    print("\n✅ Agent test completed")

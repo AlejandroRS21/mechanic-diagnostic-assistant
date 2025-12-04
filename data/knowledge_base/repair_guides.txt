@@ -1,0 +1,298 @@
+=== BRAKE PAD REPLACEMENT ===
+Repair: Brake Pad Replacement
+
+Required Tools:
+- Jack and jack stands
+- Lug wrench
+- C-clamp or brake caliper tool
+- Socket set
+- Torque wrench
+- Wire brush
+
+Required Parts:
+- New brake pads (front or rear set)
+- Brake cleaner
+- Anti-seize compound
+- Optional: New brake hardware kit
+
+Safety Precautions:
+⚠️ NEVER work under a car supported only by a jack
+⚠️ Always use jack stands
+⚠️ Wear safety glasses
+⚠️ Wash hands after working with brake dust (may contain asbestos)
+
+Estimated Time: 1-2 hours per axle
+Difficulty Level: Intermediate
+
+Step-by-Step Procedure:
+
+1. Preparation
+   - Park on level ground and engage parking brake
+   - Loosen lug nuts while vehicle is on ground (do not remove)
+   - Lift vehicle with jack and secure on jack stands
+   - Remove wheels
+
+2. Remove Old Brake Pads
+   - Locate brake caliper
+   - Remove caliper bolts (usually 2) - DO NOT disconnect brake line
+   - Lift caliper off rotor and suspend with wire (don't let it hang by brake hose)
+   - Remove old brake pads from caliper bracket
+   - Remove caliper bracket if replacing rotors (2 larger bolts)
+
+3. Inspect Components
+   - Check brake rotors for scoring, cracks, or excessive wear
+   - Measure rotor thickness with micrometer (compare to minimum spec)
+   - Inspect caliper slides/pins for corrosion or binding
+   - Check brake hoses for cracks or damage
+
+4. Prepare for Installation
+   - Use C-clamp to compress caliper piston slowly back into bore
+   - Clean caliper bracket and slides with wire brush
+   - Apply brake lubricant to caliper slides (NOT the pads themselves)
+   - Clean rotor surface with brake cleaner
+
+5. Install New Brake Pads
+   - Install new brake hardware clips if included
+   - Place new brake pads in caliper bracket (inner and outer)
+   - Reinstall caliper bracket if removed (torque to spec: typically 70-90 ft-lbs)
+   - Lower caliper over new pads
+   - Install and torque caliper bolts (typically 25-35 ft-lbs)
+
+6. Repeat for Other Side
+   - Complete same procedure on opposite wheel
+
+7. Finishing Steps
+   - Reinstall wheels and hand-tighten lug nuts
+   - Lower vehicle to ground
+   - Torque lug nuts in star pattern to manufacturer spec (typically 80-100 ft-lbs)
+   - Pump brake pedal several times until firm before driving
+   - Check brake fluid level in reservoir (should be at MAX line)
+
+8. Break-In Period (IMPORTANT)
+   - Drive at moderate speeds for first 200 miles
+   - Avoid hard braking initially to allow pads to seat properly
+   - First 30 stops: brake from 30 mph to 5 mph with moderate pressure
+   - Allow brakes to cool between stops
+
+9. Final Checks
+   - After test drive, recheck lug nut torque
+   - Listen for abnormal brake noises
+   - Verify brake pedal feels firm and responsive
+
+
+=== CATALYTIC CONVERTER REPLACEMENT ===
+Repair: Catalytic Converter Replacement
+
+Required Tools:
+- Jack and jack stands
+- Penetrating oil (PB Blaster, WD-40)
+- Oxygen sensor socket
+- Socket set and ratchet
+- Reciprocating saw or cutting wheel (for rusted bolts)
+- Wire brush
+- Torque wrench
+
+Required Parts:
+- New catalytic converter
+- Exhaust gaskets
+- Exhaust hangers (if damaged)
+- Anti-seize compound
+- New bolts/nuts (often needed due to rust)
+
+Safety Precautions:
+⚠️ Allow exhaust system to cool completely (at least 1 hour after driving)
+⚠️ Wear safety glasses and gloves
+⚠️ Work in well-ventilated area
+⚠️ Use proper lifting equipment
+
+Estimated Time: 2-4 hours
+Difficulty Level: Intermediate to Advanced
+
+Step-by-Step Procedure:
+
+1. Preparation
+   - Let exhaust cool completely
+   - Spray all exhaust bolts with penetrating oil
+   - Wait 15-30 minutes for penetrant to work
+   - Lift vehicle and secure on jack stands
+
+2. Disconnect Oxygen Sensors
+   - Locate oxygen sensors before and after catalytic converter
+   - Disconnect electrical connectors
+   - Remove sensors with oxygen sensor socket
+   - Store sensors safely (they're reusable if not damaged)
+
+3. Remove Catalytic Converter
+   - Support exhaust system with jack or hanger
+   - Remove bolts connecting cat to exhaust manifold/header
+   - Remove bolts connecting cat to mid-pipe
+   - If bolts are seized: cut with reciprocating saw (may need to cut pipe)
+   - Lower old catalytic converter
+
+4. Prepare for Installation
+   - Clean mounting surfaces with wire brush
+   - Remove old gasket material
+   - Check exhaust hangers and replace if damaged
+   - Apply anti-seize to new bolt threads
+
+5. Install New Catalytic Converter
+   - Position new cat with new gaskets
+   - Start all bolts hand-tight first
+   - Align exhaust system properly (check clearance from chassis)
+   - Torque bolts to specification (typically 25-35 ft-lbs)
+
+6. Reinstall Oxygen Sensors
+   - Apply anti-seize to sensor threads (avoid getting on sensor tip)
+   - Install sensors and torque (typically 30-35 ft-lbs)
+   - Reconnect electrical connectors
+
+7. Final Steps
+   - Lower vehicle
+   - Start engine and check for exhaust leaks
+   - Clear diagnostic codes with OBD-II scanner
+   - Test drive and verify check engine light stays off
+
+
+=== SPARK PLUG REPLACEMENT ===
+Repair: Spark Plug Replacement
+
+Required Tools:
+- Spark plug socket (5/8" or 13/16" depending on vehicle)
+- Socket extension
+- Ratchet
+- Torque wrench
+- Spark plug gap tool
+- Dielectric grease
+- Compressed air (optional but recommended)
+
+Required Parts:
+- New spark plugs (correct type for your engine)
+- Anti-seize compound (for aluminum heads)
+
+Safety Precautions:
+⚠️ Work on cool engine
+⚠️ Disconnect battery negative terminal
+⚠️ Keep workspace clean to prevent debris entering cylinders
+
+Estimated Time: 30 minutes - 2 hours (depending on engine accessibility)
+Difficulty Level: Beginner to Intermediate
+
+Step-by-Step Procedure:
+
+1. Preparation
+   - Let engine cool completely
+   - Disconnect battery negative terminal
+   - Locate all spark plugs
+   - Label spark plug wires if not using coil-on-plug system
+
+2. Access Spark Plugs
+   - Remove engine cover if present
+   - On coil-on-plug systems: disconnect electrical connector from ignition coil
+   - Remove ignition coil or spark plug wire (one at a time)
+   - Use compressed air to blow debris from around spark plug
+
+3. Remove Old Spark Plugs
+   - Insert spark plug socket and extension
+   - Turn counterclockwise
+   - If resistance felt, apply penetrating oil and wait
+   - Remove spark plug completely
+   - Inspect old plug for fouling, wear, or damage
+
+4. Gap New Spark Plugs
+   - Check spark plug gap with gap tool
+   - Compare to vehicle specification (usually 0.028" - 0.060")
+   - Adjust if necessary by carefully bending ground electrode
+
+5. Install New Spark Plugs
+   - Apply small amount of anti-seize to threads (aluminum heads only)
+   - Start spark plug by hand to avoid cross-threading
+   - Tighten with socket:
+     * Gasket seat plugs: 1/4 turn after gasket contacts head
+     * Tapered seat plugs: 1/16 turn after seat contacts
+   - Or torque to specification (typically 15-20 ft-lbs for 14mm)
+
+6. Reinstall Ignition Components
+   - Apply dielectric grease inside spark plug boot
+   - Reinstall ignition coil or spark plug wire
+   - Reconnect electrical connector
+   - Ensure secure connection
+
+7. Repeat for All Cylinders
+   - Work on one cylinder at a time to avoid mixing up wires
+
+8. Final Steps
+   - Reconnect battery
+   - Start engine and listen for smooth operation
+   - Check for misfires or rough idle
+
+
+=== OIL CHANGE PROCEDURE ===
+Repair: Engine Oil and Filter Change
+
+Required Tools:
+- Oil filter wrench
+- Socket set or wrench for drain plug
+- Oil drain pan
+- Funnel
+- Jack and jack stands (if needed)
+- Shop towels
+
+Required Parts:
+- Engine oil (correct weight and quantity for your vehicle)
+- Oil filter (correct part number)
+- Drain plug washer/gasket (if reusable type is worn)
+
+Safety Precautions:
+⚠️ Avoid hot oil - can cause severe burns
+⚠️ Dispose of used oil properly at recycling center
+⚠️ Wear gloves and safety glasses
+
+Estimated Time: 30-45 minutes
+Difficulty Level: Beginner
+
+Step-by-Step Procedure:
+
+1. Warm Up Engine
+   - Run engine for 5 minutes to warm oil (flows better)
+   - Turn off engine and wait 2-3 minutes
+   - Lift vehicle if necessary and secure on jack stands
+
+2. Drain Old Oil
+   - Locate oil drain plug under engine
+   - Position drain pan underneath
+   - Remove drain plug (counterclockwise)
+   - Allow oil to drain completely (5-10 minutes)
+
+3. Replace Oil Filter
+   - Locate oil filter
+   - Use filter wrench to remove old filter (counterclockwise)
+   - Clean filter mounting surface on engine
+   - Apply thin coat of new oil to rubber gasket on new filter
+   - Install new filter hand-tight only (do NOT use wrench)
+
+4. Reinstall Drain Plug
+   - Replace drain plug washer if needed
+   - Install drain plug and tighten (typically 25-30 ft-lbs)
+   - Wipe area clean
+
+5. Add New Oil
+   - Lower vehicle if raised
+   - Remove oil filler cap
+   - Use funnel to add correct amount of oil
+   - Check owner's manual for capacity
+   - Install oil filler cap
+
+6. Check Oil Level
+   - Start engine and run for 1 minute
+   - Turn off and wait 2 minutes
+   - Remove dipstick, wipe clean, reinsert fully
+   - Remove again and check level (should be between MIN and MAX)
+   - Add oil if needed
+
+7. Final Checks
+   - Inspect under vehicle for leaks
+   - Reset oil life indicator if equipped
+   - Record mileage and date for next change
+
+
+These repair guides provide general procedures. Always consult your vehicle's service manual for specific torque specifications, procedures, and safety precautions for your particular make and model.

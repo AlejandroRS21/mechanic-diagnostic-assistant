@@ -1,0 +1,408 @@
+{
+    "parts": [
+        {
+            "id": "CAT-001",
+            "name": "Catalytic Converter - Universal",
+            "category": "Emissions",
+            "price": 280.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 24
+        },
+        {
+            "id": "CAT-002",
+            "name": "Catalytic Converter - OEM Toyota",
+            "category": "Emissions",
+            "price": 650.00,
+            "type": "OEM",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020"
+            ],
+            "warranty_months": 36
+        },
+        {
+            "id": "BRK-001",
+            "name": "Brake Pads - Front (Ceramic)",
+            "category": "Brakes",
+            "price": 45.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "BRK-002",
+            "name": "Brake Pads - Front (OEM)",
+            "category": "Brakes",
+            "price": 85.00,
+            "type": "OEM",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020"
+            ],
+            "warranty_months": 24
+        },
+        {
+            "id": "BRK-003",
+            "name": "Brake Rotors - Front (Pair)",
+            "category": "Brakes",
+            "price": 120.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "IGN-001",
+            "name": "Spark Plugs - Platinum (Set of 4)",
+            "category": "Ignition",
+            "price": 28.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "IGN-002",
+            "name": "Spark Plugs - Iridium (Set of 4)",
+            "category": "Ignition",
+            "price": 48.00,
+            "type": "OEM",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 24
+        },
+        {
+            "id": "IGN-003",
+            "name": "Ignition Coil",
+            "category": "Ignition",
+            "price": 65.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "OXY-001",
+            "name": "Oxygen Sensor - Upstream",
+            "category": "Emissions",
+            "price": 85.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "OXY-002",
+            "name": "Oxygen Sensor - Downstream",
+            "category": "Emissions",
+            "price": 75.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "AIR-001",
+            "name": "Engine Air Filter",
+            "category": "Air Intake",
+            "price": 18.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "AIR-002",
+            "name": "Cabin Air Filter",
+            "category": "Climate Control",
+            "price": 15.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "MAF-001",
+            "name": "Mass Air Flow Sensor",
+            "category": "Air Intake",
+            "price": 120.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "THR-001",
+            "name": "Throttle Position Sensor",
+            "category": "Air Intake",
+            "price": 95.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "COOL-001",
+            "name": "Thermostat with Gasket",
+            "category": "Cooling",
+            "price": 35.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "COOL-002",
+            "name": "Water Pump",
+            "category": "Cooling",
+            "price": 85.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 24
+        },
+        {
+            "id": "COOL-003",
+            "name": "Radiator",
+            "category": "Cooling",
+            "price": 180.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020"
+            ],
+            "warranty_months": 24
+        },
+        {
+            "id": "FUEL-001",
+            "name": "Fuel Pump Assembly",
+            "category": "Fuel System",
+            "price": 250.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "FUEL-002",
+            "name": "Fuel Filter",
+            "category": "Fuel System",
+            "price": 25.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "FUEL-003",
+            "name": "Fuel Injector (Single)",
+            "category": "Fuel System",
+            "price": 85.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "BATT-001",
+            "name": "Battery - 600 CCA",
+            "category": "Electrical",
+            "price": 120.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 36
+        },
+        {
+            "id": "ALT-001",
+            "name": "Alternator - Remanufactured",
+            "category": "Electrical",
+            "price": 180.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 24
+        },
+        {
+            "id": "START-001",
+            "name": "Starter Motor - Remanufactured",
+            "category": "Electrical",
+            "price": 150.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 24
+        },
+        {
+            "id": "BELT-001",
+            "name": "Serpentine Belt",
+            "category": "Engine",
+            "price": 35.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "TENS-001",
+            "name": "Belt Tensioner",
+            "category": "Engine",
+            "price": 65.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "SUSP-001",
+            "name": "Strut Assembly - Front (Single)",
+            "category": "Suspension",
+            "price": 120.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 24
+        },
+        {
+            "id": "SUSP-002",
+            "name": "Sway Bar Link",
+            "category": "Suspension",
+            "price": 25.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "SUSP-003",
+            "name": "Control Arm Bushing Kit",
+            "category": "Suspension",
+            "price": 45.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "TRANS-001",
+            "name": "Transmission Fluid - ATF (Quart)",
+            "category": "Transmission",
+            "price": 12.00,
+            "type": "OEM",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": null
+        },
+        {
+            "id": "TRANS-002",
+            "name": "Transmission Filter Kit",
+            "category": "Transmission",
+            "price": 55.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "CV-001",
+            "name": "CV Axle Assembly - Front",
+            "category": "Drivetrain",
+            "price": 95.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021"
+            ],
+            "warranty_months": 24
+        },
+        {
+            "id": "OIL-001",
+            "name": "Engine Oil - Synthetic 5W-30 (Quart)",
+            "category": "Fluids",
+            "price": 8.50,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": null
+        },
+        {
+            "id": "OIL-002",
+            "name": "Oil Filter",
+            "category": "Fluids",
+            "price": 7.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020"
+            ],
+            "warranty_months": null
+        }
+    ]
+}

@@ -1,0 +1,584 @@
+[
+    {
+        "symptom": "Engine makes squealing or screeching noise",
+        "severity": "Medium",
+        "category": "Engine Noise",
+        "possible_causes": [
+            {
+                "cause": "Worn serpentine belt",
+                "probability": 50
+            },
+            {
+                "cause": "Failing alternator bearing",
+                "probability": 20
+            },
+            {
+                "cause": "Power steering pump issue",
+                "probability": 15
+            },
+            {
+                "cause": "Water pump bearing failure",
+                "probability": 10
+            },
+            {
+                "cause": "Belt tensioner problem",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "Does the noise occur when the engine is cold or hot?",
+            "Does the noise change with engine RPM?",
+            "Is there any fluid leak visible?",
+            "When was the serpentine belt last replaced?"
+        ]
+    },
+    {
+        "symptom": "Squealing or grinding noise when braking",
+        "severity": "High",
+        "category": "Brakes",
+        "possible_causes": [
+            {
+                "cause": "Worn brake pads",
+                "probability": 60
+            },
+            {
+                "cause": "Warped brake rotors",
+                "probability": 25
+            },
+            {
+                "cause": "Worn wheel bearing",
+                "probability": 10
+            },
+            {
+                "cause": "Brake caliper sticking",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "Is it a high-pitched squeal or a grinding sound?",
+            "Does it happen only when braking or also while driving?",
+            "Is there vibration in the steering wheel or brake pedal?",
+            "How long has this noise been occurring?"
+        ]
+    },
+    {
+        "symptom": "Car pulls to one side when braking",
+        "severity": "High",
+        "category": "Brakes",
+        "possible_causes": [
+            {
+                "cause": "Uneven brake pad wear",
+                "probability": 35
+            },
+            {
+                "cause": "Stuck brake caliper",
+                "probability": 30
+            },
+            {
+                "cause": "Contaminated brake pads (oil/grease)",
+                "probability": 20
+            },
+            {
+                "cause": "Tire pressure imbalance",
+                "probability": 10
+            },
+            {
+                "cause": "Suspension misalignment",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "Which direction does it pull (left or right)?",
+            "Is the pulling severe or mild?",
+            "Are tire pressures equal on both sides?",
+            "Is there any burning smell after driving?"
+        ]
+    },
+    {
+        "symptom": "Engine overheating",
+        "severity": "Critical",
+        "category": "Cooling System",
+        "possible_causes": [
+            {
+                "cause": "Low coolant level",
+                "probability": 30
+            },
+            {
+                "cause": "Thermostat stuck closed",
+                "probability": 25
+            },
+            {
+                "cause": "Radiator blockage or restriction",
+                "probability": 20
+            },
+            {
+                "cause": "Failing water pump",
+                "probability": 15
+            },
+            {
+                "cause": "Cooling fan not working",
+                "probability": 10
+            }
+        ],
+        "diagnostic_questions": [
+            "Is the coolant level low?",
+            "Is the cooling fan running when the engine is hot?",
+            "Are there any visible coolant leaks?",
+            "Does the temperature gauge go all the way to hot?"
+        ]
+    },
+    {
+        "symptom": "Rough idle or engine stalling",
+        "severity": "Medium",
+        "category": "Engine Performance",
+        "possible_causes": [
+            {
+                "cause": "Dirty or faulty idle air control valve",
+                "probability": 30
+            },
+            {
+                "cause": "Vacuum leak",
+                "probability": 25
+            },
+            {
+                "cause": "Dirty throttle body",
+                "probability": 20
+            },
+            {
+                "cause": "Faulty spark plugs",
+                "probability": 15
+            },
+            {
+                "cause": "Mass air flow sensor issue",
+                "probability": 10
+            }
+        ],
+        "diagnostic_questions": [
+            "Does the idle smooth out when driving?",
+            "Is the check engine light on?",
+            "Does it stall when coming to a stop?",
+            "When was the last tune-up?"
+        ]
+    },
+    {
+        "symptom": "Transmission slipping or delayed engagement",
+        "severity": "High",
+        "category": "Transmission",
+        "possible_causes": [
+            {
+                "cause": "Low transmission fluid",
+                "probability": 40
+            },
+            {
+                "cause": "Worn transmission clutches",
+                "probability": 25
+            },
+            {
+                "cause": "Faulty transmission solenoid",
+                "probability": 20
+            },
+            {
+                "cause": "Torque converter issue",
+                "probability": 10
+            },
+            {
+                "cause": "Transmission control module fault",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "Is the transmission fluid level correct?",
+            "What color is the transmission fluid?",
+            "Does it slip in all gears or just specific ones?",
+            "Is there any burning smell?"
+        ]
+    },
+    {
+        "symptom": "Steering wheel vibration at highway speeds",
+        "severity": "Medium",
+        "category": "Suspension/Steering",
+        "possible_causes": [
+            {
+                "cause": "Unbalanced wheels",
+                "probability": 50
+            },
+            {
+                "cause": "Warped brake rotors",
+                "probability": 20
+            },
+            {
+                "cause": "Worn tie rod ends",
+                "probability": 15
+            },
+            {
+                "cause": "Bad wheel bearing",
+                "probability": 10
+            },
+            {
+                "cause": "Bent wheel rim",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "At what speed does the vibration start?",
+            "Does the vibration get worse at higher speeds?",
+            "Is the vibration worse when braking?",
+            "When were the wheels last balanced?"
+        ]
+    },
+    {
+        "symptom": "Hard to start or no start condition",
+        "severity": "High",
+        "category": "Starting System",
+        "possible_causes": [
+            {
+                "cause": "Weak or dead battery",
+                "probability": 40
+            },
+            {
+                "cause": "Faulty starter motor",
+                "probability": 25
+            },
+            {
+                "cause": "Fuel delivery problem",
+                "probability": 15
+            },
+            {
+                "cause": "Ignition system fault",
+                "probability": 10
+            },
+            {
+                "cause": "Security system issue",
+                "probability": 10
+            }
+        ],
+        "diagnostic_questions": [
+            "Does the engine crank but not start, or no crank at all?",
+            "Do you hear a clicking sound when trying to start?",
+            "Are the dashboard lights bright or dim?",
+            "How old is the battery?"
+        ]
+    },
+    {
+        "symptom": "Excessive oil consumption (no visible leak)",
+        "severity": "High",
+        "category": "Engine",
+        "possible_causes": [
+            {
+                "cause": "Worn piston rings",
+                "probability": 40
+            },
+            {
+                "cause": "Valve stem seals worn",
+                "probability": 35
+            },
+            {
+                "cause": "PCV system malfunction",
+                "probability": 15
+            },
+            {
+                "cause": "Turbocharger seal leak (if equipped)",
+                "probability": 10
+            }
+        ],
+        "diagnostic_questions": [
+            "Is there blue smoke from the exhaust?",
+            "How much oil is consumed between changes?",
+            "Is the smoke worse on startup or during acceleration?",
+            "What is the vehicle mileage?"
+        ]
+    },
+    {
+        "symptom": "AC blowing warm air",
+        "severity": "Low",
+        "category": "Climate Control",
+        "possible_causes": [
+            {
+                "cause": "Low refrigerant charge",
+                "probability": 50
+            },
+            {
+                "cause": "Refrigerant leak",
+                "probability": 25
+            },
+            {
+                "cause": "Faulty AC compressor",
+                "probability": 15
+            },
+            {
+                "cause": "Blocked condenser",
+                "probability": 7
+            },
+            {
+                "cause": "Faulty expansion valve",
+                "probability": 3
+            }
+        ],
+        "diagnostic_questions": [
+            "Does the AC compressor engage (clicking sound)?",
+            "Is airflow from vents strong or weak?",
+            "Does it blow cold initially then warm up?",
+            "When was the AC last serviced?"
+        ]
+    },
+    {
+        "symptom": "Knocking or pinging noise from engine",
+        "severity": "High",
+        "category": "Engine Performance",
+        "possible_causes": [
+            {
+                "cause": "Using low-octane fuel (detonation)",
+                "probability": 35
+            },
+            {
+                "cause": "Carbon buildup in combustion chamber",
+                "probability": 30
+            },
+            {
+                "cause": "Faulty knock sensor",
+                "probability": 15
+            },
+            {
+                "cause": "Worn rod bearings",
+                "probability": 15
+            },
+            {
+                "cause": "Incorrect ignition timing",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "What octane fuel are you using?",
+            "Does the knock occur under acceleration or at idle?",
+            "Is the check engine light on?",
+            "What is the oil pressure reading?"
+        ]
+    },
+    {
+        "symptom": "Power loss or hesitation during acceleration",
+        "severity": "Medium",
+        "category": "Engine Performance",
+        "possible_causes": [
+            {
+                "cause": "Clogged fuel filter",
+                "probability": 25
+            },
+            {
+                "cause": "Faulty fuel pump",
+                "probability": 20
+            },
+            {
+                "cause": "Dirty air filter",
+                "probability": 20
+            },
+            {
+                "cause": "Faulty mass air flow sensor",
+                "probability": 15
+            },
+            {
+                "cause": "Clogged catalytic converter",
+                "probability": 10
+            },
+            {
+                "cause": "Ignition system fault",
+                "probability": 10
+            }
+        ],
+        "diagnostic_questions": [
+            "Does the hesitation happen at specific speeds?",
+            "Is there a check engine light?",
+            "When were the air and fuel filters last replaced?",
+            "Is there black smoke from exhaust?"
+        ]
+    },
+    {
+        "symptom": "Excessive exhaust smoke (blue, white, or black)",
+        "severity": "High",
+        "category": "Engine/Exhaust",
+        "possible_causes": [
+            {
+                "cause": "Blue: Burning engine oil (worn rings/valve seals)",
+                "probability": 30
+            },
+            {
+                "cause": "White: Coolant entering combustion chamber (head gasket)",
+                "probability": 25
+            },
+            {
+                "cause": "Black: Running too rich (fuel system issue)",
+                "probability": 25
+            },
+            {
+                "cause": "White (thin): Normal condensation on cold start",
+                "probability": 20
+            }
+        ],
+        "diagnostic_questions": [
+            "What color is the smoke?",
+            "Does it occur on startup, acceleration, or constantly?",
+            "Is coolant level dropping?",
+            "Is the engine oil milky or frothy?"
+        ]
+    },
+    {
+        "symptom": "Clunking noise when going over bumps",
+        "severity": "Medium",
+        "category": "Suspension",
+        "possible_causes": [
+            {
+                "cause": "Worn strut mounts",
+                "probability": 30
+            },
+            {
+                "cause": "Damaged sway bar links",
+                "probability": 25
+            },
+            {
+                "cause": "Worn control arm bushings",
+                "probability": 20
+            },
+            {
+                "cause": "Loose or damaged shock absorbers",
+                "probability": 15
+            },
+            {
+                "cause": "Exhaust system hitting chassis",
+                "probability": 10
+            }
+        ],
+        "diagnostic_questions": [
+            "Is the noise from front or rear?",
+            "Is it a single clunk or multiple sounds?",
+            "Does the vehicle feel stable when cornering?",
+            "Can you feel the clunk through the steering wheel?"
+        ]
+    },
+    {
+        "symptom": "Battery light on or electrical issues",
+        "severity": "High",
+        "category": "Electrical",
+        "possible_causes": [
+            {
+                "cause": "Failing alternator",
+                "probability": 50
+            },
+            {
+                "cause": "Worn alternator belt",
+                "probability": 20
+            },
+            {
+                "cause": "Bad battery connection",
+                "probability": 15
+            },
+            {
+                "cause": "Faulty voltage regulator",
+                "probability": 10
+            },
+            {
+                "cause": "Parasitic battery drain",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "Is the battery light on constantly or intermittently?",
+            "Have you noticed dimming headlights?",
+            "Does the car start normally?",
+            "Is there a squealing noise from the engine?"
+        ]
+    },
+    {
+        "symptom": "Fuel smell inside or outside vehicle",
+        "severity": "Critical",
+        "category": "Fuel System",
+        "possible_causes": [
+            {
+                "cause": "Fuel line leak",
+                "probability": 35
+            },
+            {
+                "cause": "Leaking fuel injector",
+                "probability": 25
+            },
+            {
+                "cause": "Faulty fuel pressure regulator",
+                "probability": 20
+            },
+            {
+                "cause": "EVAP system leak",
+                "probability": 15
+            },
+            {
+                "cause": "Loose or damaged fuel cap",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "Can you see any fuel puddles under the vehicle?",
+            "Is the smell strongest after driving or when parked?",
+            "Is there a check engine light?",
+            "Is the fuel gauge working properly?"
+        ]
+    },
+    {
+        "symptom": "ABS warning light illuminated",
+        "severity": "High",
+        "category": "Brakes",
+        "possible_causes": [
+            {
+                "cause": "Faulty wheel speed sensor",
+                "probability": 45
+            },
+            {
+                "cause": "Damaged ABS sensor wiring",
+                "probability": 25
+            },
+            {
+                "cause": "Low brake fluid",
+                "probability": 15
+            },
+            {
+                "cause": "Faulty ABS module",
+                "probability": 10
+            },
+            {
+                "cause": "Blown ABS fuse",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "Is the regular brake light also on?",
+            "Do the brakes feel normal when stopping?",
+            "Is the brake fluid level low?",
+            "Did the light come on after hitting a bump or pothole?"
+        ]
+    },
+    {
+        "symptom": "Clicking or popping noise when turning",
+        "severity": "Medium",
+        "category": "CV Joints/Drivetrain",
+        "possible_causes": [
+            {
+                "cause": "Worn CV joint (axle shaft)",
+                "probability": 70
+            },
+            {
+                "cause": "Damaged CV boot (grease leaked out)",
+                "probability": 15
+            },
+            {
+                "cause": "Worn ball joint",
+                "probability": 10
+            },
+            {
+                "cause": "Loose wheel bearing",
+                "probability": 5
+            }
+        ],
+        "diagnostic_questions": [
+            "Does it click more when turning sharply?",
+            "Is it worse when accelerating through a turn?",
+            "Is there grease on the inside of the wheel?",
+            "Which side does the noise come from?"
+        ]
+    }
+]

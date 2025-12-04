@@ -1,0 +1,527 @@
+[
+  {
+    "code": "P0420",
+    "description": "Catalyst System Efficiency Below Threshold (Bank 1)",
+    "severity": "Medium",
+    "system": "Emissions",
+    "common_causes": [
+      "Catalytic converter deteriorated or damaged",
+      "Oxygen sensor malfunction (upstream or downstream)",
+      "Exhaust leak before catalytic converter",
+      "Engine misfire causing unburned fuel",
+      "Fuel system issues (rich or lean condition)"
+    ],
+    "typical_repair_cost_min": 450,
+    "typical_repair_cost_max": 1200,
+    "repair_time_hours_min": 2,
+    "repair_time_hours_max": 4,
+    "diagnostic_steps": [
+      "Verify code with OBD-II scanner",
+      "Check oxygen sensor readings",
+      "Inspect exhaust system for leaks",
+      "Test catalytic converter efficiency",
+      "Check for engine misfires"
+    ]
+  },
+  {
+    "code": "P0300",
+    "description": "Random/Multiple Cylinder Misfire Detected",
+    "severity": "High",
+    "system": "Ignition/Fuel",
+    "common_causes": [
+      "Worn or fouled spark plugs",
+      "Faulty ignition coils",
+      "Vacuum leak",
+      "Low fuel pressure",
+      "Dirty fuel injectors",
+      "Low compression in cylinders"
+    ],
+    "typical_repair_cost_min": 150,
+    "typical_repair_cost_max": 800,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 4,
+    "diagnostic_steps": [
+      "Read freeze frame data",
+      "Inspect spark plugs and wires",
+      "Test ignition coils",
+      "Check fuel pressure",
+      "Perform compression test"
+    ]
+  },
+  {
+    "code": "P0171",
+    "description": "System Too Lean (Bank 1)",
+    "severity": "Medium",
+    "system": "Fuel/Air",
+    "common_causes": [
+      "Vacuum leak in intake manifold",
+      "Mass air flow (MAF) sensor malfunction",
+      "Faulty oxygen sensor",
+      "Fuel pump weakness",
+      "Clogged fuel filter",
+      "Exhaust leak"
+    ],
+    "typical_repair_cost_min": 100,
+    "typical_repair_cost_max": 600,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 3,
+    "diagnostic_steps": [
+      "Inspect for vacuum leaks",
+      "Test MAF sensor",
+      "Check fuel pressure",
+      "Inspect air filter",
+      "Check oxygen sensor data"
+    ]
+  },
+  {
+    "code": "P0442",
+    "description": "Evaporative Emission Control System Leak Detected (Small Leak)",
+    "severity": "Low",
+    "system": "EVAP",
+    "common_causes": [
+      "Loose or damaged gas cap",
+      "Cracked EVAP hose",
+      "Faulty purge valve",
+      "Leaking fuel tank",
+      "Faulty vent valve"
+    ],
+    "typical_repair_cost_min": 50,
+    "typical_repair_cost_max": 400,
+    "repair_time_hours_min": 0.5,
+    "repair_time_hours_max": 2,
+    "diagnostic_steps": [
+      "Check and tighten gas cap",
+      "Perform smoke test on EVAP system",
+      "Inspect EVAP hoses for cracks",
+      "Test purge and vent valves"
+    ]
+  },
+  {
+    "code": "P0128",
+    "description": "Coolant Thermostat (Coolant Temperature Below Thermostat Regulating Temperature)",
+    "severity": "Low",
+    "system": "Cooling",
+    "common_causes": [
+      "Stuck open thermostat",
+      "Faulty coolant temperature sensor",
+      "Low coolant level",
+      "Thermostat housing leak"
+    ],
+    "typical_repair_cost_min": 150,
+    "typical_repair_cost_max": 300,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 2,
+    "diagnostic_steps": [
+      "Monitor coolant temperature",
+      "Test thermostat operation",
+      "Check coolant level",
+      "Inspect for coolant leaks"
+    ]
+  },
+  {
+    "code": "P0455",
+    "description": "Evaporative Emission Control System Leak Detected (Large Leak)",
+    "severity": "Medium",
+    "system": "EVAP",
+    "common_causes": [
+      "Missing or loose gas cap",
+      "Damaged fuel filler neck",
+      "Large crack in EVAP canister",
+      "Disconnected EVAP hose",
+      "Faulty fuel tank"
+    ],
+    "typical_repair_cost_min": 75,
+    "typical_repair_cost_max": 500,
+    "repair_time_hours_min": 0.5,
+    "repair_time_hours_max": 3,
+    "diagnostic_steps": [
+      "Verify gas cap is present and tight",
+      "Visual inspection of EVAP system",
+      "Smoke test for large leaks",
+      "Check fuel filler neck"
+    ]
+  },
+  {
+    "code": "P0505",
+    "description": "Idle Air Control System Malfunction",
+    "severity": "Medium",
+    "system": "Air Intake",
+    "common_causes": [
+      "Dirty or faulty IAC valve",
+      "Carbon buildup in throttle body",
+      "Vacuum leak",
+      "Wiring issues to IAC valve"
+    ],
+    "typical_repair_cost_min": 100,
+    "typical_repair_cost_max": 400,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 2,
+    "diagnostic_steps": [
+      "Clean throttle body",
+      "Test IAC valve",
+      "Check for vacuum leaks",
+      "Inspect wiring and connectors"
+    ]
+  },
+  {
+    "code": "P0101",
+    "description": "Mass Air Flow (MAF) Circuit Range/Performance",
+    "severity": "Medium",
+    "system": "Air Intake",
+    "common_causes": [
+      "Dirty MAF sensor",
+      "Faulty MAF sensor",
+      "Air filter restriction",
+      "Intake air leak",
+      "Wiring issues"
+    ],
+    "typical_repair_cost_min": 150,
+    "typical_repair_cost_max": 400,
+    "repair_time_hours_min": 0.5,
+    "repair_time_hours_max": 1.5,
+    "diagnostic_steps": [
+      "Clean MAF sensor with MAF cleaner",
+      "Inspect air filter",
+      "Check for intake leaks",
+      "Test MAF sensor voltage"
+    ]
+  },
+  {
+    "code": "P0301",
+    "description": "Cylinder 1 Misfire Detected",
+    "severity": "High",
+    "system": "Ignition/Fuel",
+    "common_causes": [
+      "Faulty spark plug (cylinder 1)",
+      "Bad ignition coil (cylinder 1)",
+      "Fuel injector problem (cylinder 1)",
+      "Low compression in cylinder 1",
+      "Vacuum leak affecting cylinder 1"
+    ],
+    "typical_repair_cost_min": 100,
+    "typical_repair_cost_max": 600,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 3,
+    "diagnostic_steps": [
+      "Swap spark plug from cylinder 1",
+      "Swap ignition coil from cylinder 1",
+      "Test fuel injector",
+      "Perform compression test on cylinder 1"
+    ]
+  },
+  {
+    "code": "P0401",
+    "description": "Exhaust Gas Recirculation (EGR) Flow Insufficient",
+    "severity": "Medium",
+    "system": "Emissions",
+    "common_causes": [
+      "Clogged EGR passages",
+      "Faulty EGR valve",
+      "Carbon buildup in EGR system",
+      "Faulty EGR position sensor",
+      "Vacuum hose issues"
+    ],
+    "typical_repair_cost_min": 150,
+    "typical_repair_cost_max": 500,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 3,
+    "diagnostic_steps": [
+      "Inspect EGR valve",
+      "Clean EGR passages",
+      "Test EGR valve operation",
+      "Check vacuum lines"
+    ]
+  },
+  {
+    "code": "P0404",
+    "description": "Exhaust Gas Recirculation (EGR) Circuit Range/Performance",
+    "severity": "Medium",
+    "system": "Emissions",
+    "common_causes": [
+      "Faulty EGR valve",
+      "Carbon buildup",
+      "Wiring issues",
+      "EGR position sensor fault"
+    ],
+    "typical_repair_cost_min": 150,
+    "typical_repair_cost_max": 450,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 2.5,
+    "diagnostic_steps": [
+      "Test EGR valve",
+      "Check wiring and connectors",
+      "Clean EGR system",
+      "Test EGR position sensor"
+    ]
+  },
+  {
+    "code": "P0715",
+    "description": "Input/Turbine Speed Sensor Circuit Malfunction",
+    "severity": "High",
+    "system": "Transmission",
+    "common_causes": [
+      "Faulty input speed sensor",
+      "Wiring issues",
+      "Low transmission fluid",
+      "Internal transmission problems"
+    ],
+    "typical_repair_cost_min": 200,
+    "typical_repair_cost_max": 800,
+    "repair_time_hours_min": 1.5,
+    "repair_time_hours_max": 4,
+    "diagnostic_steps": [
+      "Check transmission fluid level",
+      "Test input speed sensor",
+      "Inspect wiring",
+      "Scan for additional transmission codes"
+    ]
+  },
+  {
+    "code": "P0700",
+    "description": "Transmission Control System Malfunction",
+    "severity": "High",
+    "system": "Transmission",
+    "common_causes": [
+      "Transmission control module issue",
+      "Wiring problems",
+      "Low transmission fluid",
+      "Internal transmission failure",
+      "Faulty transmission sensor"
+    ],
+    "typical_repair_cost_min": 200,
+    "typical_repair_cost_max": 2000,
+    "repair_time_hours_min": 2,
+    "repair_time_hours_max": 8,
+    "diagnostic_steps": [
+      "Check transmission fluid",
+      "Pull transmission-specific codes",
+      "Inspect wiring harness",
+      "Test transmission sensors"
+    ]
+  },
+  {
+    "code": "P0335",
+    "description": "Crankshaft Position Sensor A Circuit Malfunction",
+    "severity": "Critical",
+    "system": "Ignition",
+    "common_causes": [
+      "Faulty crankshaft position sensor",
+      "Damaged sensor wiring",
+      "Bad sensor connector",
+      "Timing belt/chain issues"
+    ],
+    "typical_repair_cost_min": 120,
+    "typical_repair_cost_max": 350,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 2,
+    "diagnostic_steps": [
+      "Test crankshaft position sensor",
+      "Inspect wiring and connector",
+      "Check sensor air gap",
+      "Verify timing marks"
+    ]
+  },
+  {
+    "code": "P0340",
+    "description": "Camshaft Position Sensor Circuit Malfunction",
+    "severity": "High",
+    "system": "Ignition",
+    "common_causes": [
+      "Faulty camshaft position sensor",
+      "Wiring issues",
+      "Timing chain/belt problem",
+      "Oil contamination on sensor"
+    ],
+    "typical_repair_cost_min": 120,
+    "typical_repair_cost_max": 400,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 2.5,
+    "diagnostic_steps": [
+      "Test camshaft position sensor",
+      "Check wiring and connectors",
+      "Verify timing",
+      "Inspect for oil leaks on sensor"
+    ]
+  },
+  {
+    "code": "P0562",
+    "description": "System Voltage Low",
+    "severity": "Medium",
+    "system": "Electrical",
+    "common_causes": [
+      "Weak battery",
+      "Faulty alternator",
+      "Corroded battery terminals",
+      "Loose drive belt",
+      "Bad wiring connections"
+    ],
+    "typical_repair_cost_min": 100,
+    "typical_repair_cost_max": 600,
+    "repair_time_hours_min": 0.5,
+    "repair_time_hours_max": 2,
+    "diagnostic_steps": [
+      "Test battery voltage",
+      "Test alternator output",
+      "Inspect battery terminals",
+      "Check drive belt tension"
+    ]
+  },
+  {
+    "code": "P0174",
+    "description": "System Too Lean (Bank 2)",
+    "severity": "Medium",
+    "system": "Fuel/Air",
+    "common_causes": [
+      "Vacuum leak",
+      "MAF sensor fault",
+      "Fuel delivery problem",
+      "Oxygen sensor malfunction",
+      "Exhaust leak"
+    ],
+    "typical_repair_cost_min": 100,
+    "typical_repair_cost_max": 600,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 3,
+    "diagnostic_steps": [
+      "Check for vacuum leaks",
+      "Test MAF sensor",
+      "Check fuel pressure",
+      "Test oxygen sensors"
+    ]
+  },
+  {
+    "code": "P0172",
+    "description": "System Too Rich (Bank 1)",
+    "severity": "Medium",
+    "system": "Fuel/Air",
+    "common_causes": [
+      "Dirty air filter",
+      "Faulty MAF sensor",
+      "Leaking fuel injectors",
+      "Faulty oxygen sensor",
+      "High fuel pressure"
+    ],
+    "typical_repair_cost_min": 100,
+    "typical_repair_cost_max": 500,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 3,
+    "diagnostic_steps": [
+      "Replace air filter",
+      "Test MAF sensor",
+      "Check fuel pressure",
+      "Test fuel injectors for leaks"
+    ]
+  },
+  {
+    "code": "P0430",
+    "description": "Catalyst System Efficiency Below Threshold (Bank 2)",
+    "severity": "Medium",
+    "system": "Emissions",
+    "common_causes": [
+      "Failed catalytic converter (Bank 2)",
+      "Oxygen sensor malfunction",
+      "Exhaust leak",
+      "Engine misfire on Bank 2"
+    ],
+    "typical_repair_cost_min": 450,
+    "typical_repair_cost_max": 1200,
+    "repair_time_hours_min": 2,
+    "repair_time_hours_max": 4,
+    "diagnostic_steps": [
+      "Test oxygen sensors",
+      "Check for exhaust leaks",
+      "Test catalytic converter efficiency",
+      "Check for misfires on Bank 2"
+    ]
+  },
+  {
+    "code": "P0507",
+    "description": "Idle Air Control System RPM Higher Than Expected",
+    "severity": "Low",
+    "system": "Air Intake",
+    "common_causes": [
+      "Vacuum leak",
+      "Faulty IAC valve",
+      "Dirty throttle body",
+      "PCV valve issues",
+      "EVAP system leak"
+    ],
+    "typical_repair_cost_min": 75,
+    "typical_repair_cost_max": 350,
+    "repair_time_hours_min": 0.5,
+    "repair_time_hours_max": 2,
+    "diagnostic_steps": [
+      "Check for vacuum leaks",
+      "Clean throttle body",
+      "Test IAC valve",
+      "Inspect PCV system"
+    ]
+  },
+  {
+    "code": "P0122",
+    "description": "Throttle Position Sensor/Switch A Circuit Low Input",
+    "severity": "High",
+    "system": "Air Intake",
+    "common_causes": [
+      "Faulty throttle position sensor",
+      "Wiring short to ground",
+      "Bad connector",
+      "Faulty PCM"
+    ],
+    "typical_repair_cost_min": 120,
+    "typical_repair_cost_max": 350,
+    "repair_time_hours_min": 0.5,
+    "repair_time_hours_max": 1.5,
+    "diagnostic_steps": [
+      "Test TPS voltage",
+      "Inspect wiring for shorts",
+      "Check connector condition",
+      "Test TPS sweep"
+    ]
+  },
+  {
+    "code": "P0520",
+    "description": "Engine Oil Pressure Sensor/Switch Circuit Malfunction",
+    "severity": "High",
+    "system": "Lubrication",
+    "common_causes": [
+      "Faulty oil pressure sensor",
+      "Low engine oil",
+      "Wiring issues",
+      "Actual low oil pressure"
+    ],
+    "typical_repair_cost_min": 80,
+    "typical_repair_cost_max": 300,
+    "repair_time_hours_min": 0.5,
+    "repair_time_hours_max": 1.5,
+    "diagnostic_steps": [
+      "Check engine oil level",
+      "Test oil pressure with manual gauge",
+      "Test oil pressure sensor",
+      "Inspect wiring"
+    ]
+  },
+  {
+    "code": "P0410",
+    "description": "Secondary Air Injection System Malfunction",
+    "severity": "Low",
+    "system": "Emissions",
+    "common_causes": [
+      "Faulty air pump",
+      "Blocked air passages",
+      "Faulty check valve",
+      "Wiring issues",
+      "Faulty relay"
+    ],
+    "typical_repair_cost_min": 200,
+    "typical_repair_cost_max": 700,
+    "repair_time_hours_min": 1.5,
+    "repair_time_hours_max": 3,
+    "diagnostic_steps": [
+      "Test air pump operation",
+      "Check for blockages",
+      "Test check valve",
+      "Inspect wiring and relay"
+    ]
+  }
+]
