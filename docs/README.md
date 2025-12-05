@@ -4,7 +4,7 @@ An intelligent chatbot system that assists professional automotive mechanics wit
 
 ## 🎯 Features
 
-- ✅ **RAG System**: ChromaDB vector database with automotive knowledge base
+- ✅ **RAG System**: Qdrant vector database with automotive knowledge base
 - ✅ **5 Autonomous Tools**: Diagnostic code search, cost calculation, parts finder, known issues query, estimate generation
 - ✅ **Conversational AI**: Natural language understanding powered by GPT-4
 - ✅ **Real-time Reasoning**: Visible agent decision-making process
@@ -116,7 +116,7 @@ mechanic-diagnostic-assistant/
 │   │   └── prompts.py        # System prompts
 │   │
 │   ├── rag/                   # RAG system
-│   │   ├── knowledge_base.py # ChromaDB setup
+│   │   ├── knowledge_base.py # Qdrant setup
 │   │   ├── document_loader.py
 │   │   └── retriever.py
 │   │

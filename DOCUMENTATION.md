@@ -48,7 +48,7 @@
    - Monitoreo y trazabilidad
    - Metricas de rendimiento
 
-5. **[PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md)** - Resumen ejecutivo del proyecto
+6. **[PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md)** - Resumen ejecutivo del proyecto
    - Checklist de requisitos
    - Características implementadas
    - Herramientas autónomas
@@ -58,13 +58,26 @@
 
 ### ✨ **Características Especiales**
 
-6. **[FEATURES_MULTILANGUAGE.md](docs/FEATURES_MULTILANGUAGE.md)** - Soporte multilingüe
+7. **[FEATURES_MULTILANGUAGE.md](docs/FEATURES_MULTILANGUAGE.md)** - Soporte multilingüe
    - Detección automática de idioma
    - Idiomas soportados (ES, EN, PT, FR)
    - Implementación técnica
    - Ejemplos de uso
 
-7. **[QDRANT_IMPLEMENTATION.md](docs/QDRANT_IMPLEMENTATION.md)** - Base de datos vectorial
+8. **[QDRANT_IMPLEMENTATION.md](docs/QDRANT_IMPLEMENTATION.md)** - Base de datos vectorial
+   - Migración de ChromaDB a Qdrant
+   - Configuración local y remota
+   - Ventajas de Qdrant
+   - Almacenamiento eficiente
+
+### 📦 **Entrega Opción A**
+
+9. **[DELIVERY_ENTERPRISE_ASSISTANT.md](docs/DELIVERY_ENTERPRISE_ASSISTANT.md)** - Entrega requerida (Opción A)
+   - Uso de PLN y utilidad
+   - Diagrama conversacional (Mermaid)
+   - Detalles técnicos y modelo de lenguaje
+   - Evidencia de RAG y agente
+   - Enlaces a video y trazas (completar)
    - Migración de ChromaDB a Qdrant
    - Configuración local y remota
    - Ventajas de Qdrant
