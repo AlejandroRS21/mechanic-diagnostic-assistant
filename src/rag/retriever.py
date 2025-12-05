@@ -3,11 +3,12 @@ Retriever configuration for querying the knowledge base.
 """
 
 from typing import List, Dict
+from qdrant_client import QdrantClient
 from langchain.docstore.document import Document
-from langchain.vectorstores import Chroma
 
 from src.utils.helpers import get_logger
-from src.utils.config import TOP_K_RESULTS
+from src.utils.config import TOP_K_RESULTS, QDRANT_HOST, QDRANT_PORT, QDRANT_API_KEY, QDRANT_COLLECTION_NAME
+from src.rag.knowledge_base import KnowledgeBase
 
 logger = get_logger(__name__)
 
@@ -17,19 +18,16 @@ class KnowledgeRetriever:
     Wrapper for retrieving relevant information from the knowledge base.
     """
     
-    def __init__(self, vectorstore: Chroma, k: int = TOP_K_RESULTS):
+    def __init__(self, knowledge_base: 'KnowledgeBase', k: int = TOP_K_RESULTS):
         """
         Initialize the retriever.
         
         Args:
-            vectorstore: ChromaDB vector store
+            knowledge_base: KnowledgeBase instance
             k: Number of documents to retrieve
         """
-        self.vectorstore = vectorstore
+        self.knowledge_base = knowledge_base
         self.k = k
-        self.retriever = vectorstore.as_retriever(
-            search_kwargs={"k": k}
-        )
     
     def retrieve(self, query: str) -> List[Document]:
         """
@@ -42,7 +40,7 @@ class KnowledgeRetriever:
             List of relevant documents
         """
         logger.info(f"Retrieving documents for query: '{query}'")
-        docs = self.retriever.get_relevant_documents(query)
+        docs = self.knowledge_base.search(query, k=self.k)
         logger.info(f"Retrieved {len(docs)} documents")
         return docs
     

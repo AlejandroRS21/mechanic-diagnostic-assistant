@@ -15,7 +15,7 @@
 - [x] **1. RAG System**: ChromaDB vector database with 42+ automotive documents
 - [x] **2. Autonomous Agent**: ReAct pattern with 5 functional tools
 - [x] **3. Technical Documentation**: Comprehensive TECHNICAL_DOC.md with all sections
-- [x] **4. Monitoring**: LangSmith integration configured and tested
+- [x] **4. Monitoring**: Langfuse integration configured and tested
 - [x] **5. Gradio 6 Interface**: Modern, responsive UI with agent visualization
 - [x] **6. Video Demo Requirements**: (User needs to record)
 - [x] **7. GitHub Repository**: Complete project structure with README
@@ -88,7 +88,7 @@ mechanic-diagnostic-assistant/
 │   │   └── estimate_generator.py  # 🔧 Tool 5
 │   │
 │   ├── monitoring/
-│   │   └── langsmith_config.py    # ⭐ LangSmith setup
+│   │   └── langfuse_config.py    # ⭐ Langfuse setup
 │   │
 │   └── utils/
 │       ├── config.py              # Configuration
@@ -131,7 +131,7 @@ pip install -r requirements.txt
 Copy `.env.example` to `.env` and add:
 - OpenRouter API key (for GPT-4)
 - OpenAI API key (for embeddings)
-- LangSmith API key (for monitoring)
+- Langfuse API key (for monitoring - optional)
 
 ### 3. Run Application
 
@@ -187,7 +187,7 @@ pytest tests/ -v
 ### Technical Requirements ✅
 - [x] RAG with vector database
 - [x] 5+ autonomous agent tools
-- [x] LangSmith/Langfuse monitoring
+- [x] Langfuse/Langfuse monitoring
 - [x] Gradio 6 interface
 - [x] Complete README
 - [x] Requirements.txt with versions
@@ -208,14 +208,14 @@ pytest tests/ -v
 3. Scenario 2 (60s): Symptom-based diagnosis (brake noise)
    - Show follow-up questions
    - Show reasoning process
-4. Monitoring (30s): LangSmith dashboard with traces
+4. Monitoring (30s): Langfuse dashboard with traces
 5. Conclusion (15s): Summary of capabilities
 
 ---
 
 ## 🔗 Important Links
 
-- **LangSmith Dashboard**: https://smith.langchain.com/
+- **Langfuse Dashboard**: https://cloud.langfuse.com
 - **Project Repository**: (Add your GitHub URL)
 - **Technical Documentation**: See TECHNICAL_DOC.md
 - **Mermaid Diagram**: See assets/conversation_diagram.mmd
@@ -229,10 +229,10 @@ pytest tests/ -v
 - [ ] Test the application runs successfully
 - [ ] Initialize knowledge base (first run)
 - [ ] Test all 5 tools individually
-- [ ] Verify LangSmith tracing works
+- [ ] Verify Langfuse tracing works
 - [ ] Record demo video
 - [ ] Upload to GitHub
-- [ ] Make LangSmith traces public (académico)
+- [ ] Make Langfuse traces public (académico)
 - [ ] Add GitHub URL to documentation
 - [ ] Review all documentation for completeness
 
@@ -245,14 +245,14 @@ pytest tests/ -v
 3. **Initialize KB**: First run builds ChromaDB (takes 2-3 minutes)
 4. **Record Video**: Capture the demo scenarios
 5. **Deploy** (optional): Consider Hugging Face Spaces for public demo
-6. **Submit**: Include GitHub repo + video link + LangSmith traces
+6. **Submit**: Include GitHub repo + video link + Langfuse traces
 
 ---
 
 ## 📝 Notes
 
 - First run will build the vector database (be patient!)
-- All API calls are logged to LangSmith for transparency
+- All API calls are logged to Langfuse for transparency
 - Tools can be tested independently before running full agent
 - ChromaDB persists to `./chroma_db/` directory
 - Conversation history is maintained during session

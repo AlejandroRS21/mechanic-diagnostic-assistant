@@ -9,7 +9,7 @@ An intelligent chatbot system that assists professional automotive mechanics wit
 - ✅ **Conversational AI**: Natural language understanding powered by GPT-4
 - ✅ **Real-time Reasoning**: Visible agent decision-making process
 - ✅ **Professional Estimates**: Automated generation of customer-ready repair quotes
-- ✅ **LangSmith Monitoring**: Full tracing and observability
+- ✅ **Langfuse Monitoring**: Full tracing and observability
 - ✅ **Modern UI**: Gradio 6 interface with responsive design
 
 ## 📋 Requirements
@@ -17,7 +17,7 @@ An intelligent chatbot system that assists professional automotive mechanics wit
 - Python 3.10 or higher
 - OpenRouter API key (for GPT-4 access)
 - OpenAI API key (for embeddings)
-- LangSmith API key (for monitoring)
+- Langfuse API key (for monitoring - optional)
 
 ## 🚀 Installation
 
@@ -59,7 +59,8 @@ Edit `.env` and add your API keys:
 ```env
 OPENROUTER_API_KEY=your_openrouter_key_here
 OPENAI_API_KEY=your_openai_key_here
-LANGCHAIN_API_KEY=your_langsmith_key_here
+LANGFUSE_SECRET_KEY=your_langfuse_secret_key_here
+LANGFUSE_PUBLIC_KEY=your_langfuse_public_key_here
 ```
 
 ### 5. Initialize Knowledge Base (Optional)
@@ -127,7 +128,7 @@ mechanic-diagnostic-assistant/
 │   │   └── estimate_generator.py
 │   │
 │   ├── monitoring/
-│   │   └── langsmith_config.py
+│   │   └── langfuse_config.py
 │   │
 │   └── utils/
 │       ├── config.py
@@ -151,11 +152,11 @@ mechanic-diagnostic-assistant/
 - **Vector DB**: ChromaDB 0.5.0
 - **Framework**: LangChain 0.3.0
 - **Interface**: Gradio 6.0.0
-- **Monitoring**: LangSmith
+- **Monitoring**: Langfuse
 
 ## 📊 Monitoring
 
-All agent interactions are traced with LangSmith. View traces at:
+All agent interactions are traced with Langfuse. View traces at:
 - https://smith.langchain.com/
 
 Set `LANGCHAIN_TRACING_V2=true` in `.env` to enable tracing.
@@ -185,7 +186,7 @@ python src/agent/mechanic_agent.py
 
 - All API keys are stored in `.env` (not committed to git)
 - No customer data is persisted
-- All traces are private to your LangSmith account
+- All traces are private to your Langfuse account
 
 ## 📝 License
 

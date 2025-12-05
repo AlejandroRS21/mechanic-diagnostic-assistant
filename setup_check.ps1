@@ -33,7 +33,7 @@ if (Test-Path ".env") {
     
     if ($envContent -notmatch "OPENROUTER_API_KEY=\w+") { $missingKeys += "OPENROUTER_API_KEY"}
     if ($envContent -notmatch "OPENAI_API_KEY=\w+") { $missingKeys += "OPENAI_API_KEY" }
-    if ($envContent -notmatch "LANGCHAIN_API_KEY=\w+") { $missingKeys += "LANGCHAIN_API_KEY" }
+    # Langfuse keys are optional
     
     if ($missingKeys.Count -gt 0) {
         Write-Host "⚠ Missing API keys: $($missingKeys -join ', ')" -ForegroundColor Yellow

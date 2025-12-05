@@ -27,50 +27,128 @@ def search_code_wrapper(code: str) -> str:
 def calculate_cost_wrapper(input_str: str) -> str:
     """
     Wrapper for cost calculator.
-    Input format: JSON string with 'parts' (list) and 'labor_hours' (float)
-    Example: '{"parts": ["CAT-001"], "labor_hours": 2.5}'
+    Input format: "parts: PART1, PART2, ... labor: HOURS"
+    Example: "parts: CAT-001, O2-SENSOR labor: 2.5"
     """
     try:
-        data = json.loads(input_str)
-        parts = data.get('parts', [])
-        labor_hours = float(data.get('labor_hours', 0))
-        result = calculate_repair_cost(parts, labor_hours)
+        input_str = input_str.strip()
+        
+        # Try to parse simple format
+        parts_list = []
+        labor_hours = 0
+        
+        if "parts:" in input_str.lower() and "labor:" in input_str.lower():
+            parts_section = input_str.lower().split("labor:")[0].replace("parts:", "").strip()
+            labor_section = input_str.lower().split("labor:")[1].strip()
+            
+            parts_list = [p.strip() for p in parts_section.split(",") if p.strip()]
+            try:
+                labor_hours = float(labor_section.split()[0])
+            except ValueError:
+                pass
+        else:
+            # Try JSON fallback
+            input_str_clean = input_str.strip().strip('"\'')
+            data = json.loads(input_str_clean)
+            parts_list = data.get('parts', [])
+            labor_hours = float(data.get('labor_hours', 0))
+        
+        result = calculate_repair_cost(parts_list, labor_hours)
         return json.dumps(result, indent=2)
+    except json.JSONDecodeError:
+        return json.dumps({
+            "error": "Invalid format. Use: 'parts: PART1, PART2 labor: HOURS'",
+            "example": "parts: CAT-001, O2-SENSOR labor: 2.5",
+            "input_received": input_str
+        })
     except Exception as e:
-        return json.dumps({"error": f"Invalid input format: {str(e)}"})
+        logger.error(f"Error in calculate_cost_wrapper: {e}")
+        return json.dumps({"error": f"Error: {str(e)}"})
 
 
 def find_parts_wrapper(input_str: str) -> str:
     """
     Wrapper for parts finder.
-    Input format: JSON string with 'vehicle' (dict) and 'part_name' (str)
-    Example: '{"vehicle": {"brand": "Toyota", "model": "Corolla", "year": "2018"}, "part_name": "catalytic converter"}'
+    Input format: "PART_NAME for BRAND MODEL YEAR"
+    Example: "catalytic converter for Toyota Camry 2019"
     """
     try:
-        data = json.loads(input_str)
-        vehicle = data.get('vehicle', {})
-        part_name = data.get('part_name', '')
+        # Parse the input
+        input_str = input_str.strip()
+        
+        # Try to extract "for" pattern
+        if " for " in input_str:
+            part_name, vehicle_str = input_str.split(" for ", 1)
+            part_name = part_name.strip()
+            
+            # Parse vehicle info
+            parts = vehicle_str.strip().split()
+            brand = parts[0] if len(parts) > 0 else ""
+            model = parts[1] if len(parts) > 1 else ""
+            year = None
+            try:
+                year = int(parts[2]) if len(parts) > 2 else None
+            except ValueError:
+                pass
+            
+            vehicle = {"brand": brand, "model": model}
+            if year:
+                vehicle["year"] = str(year)
+        else:
+            # Try JSON format as fallback
+            input_str_clean = input_str.strip().strip('"\'')
+            data = json.loads(input_str_clean)
+            vehicle = data.get('vehicle', {})
+            part_name = data.get('part_name', '')
+        
+        if not part_name or not vehicle.get('brand') or not vehicle.get('model'):
+            return json.dumps({
+                "error": "Invalid format. Use: 'PART_NAME for BRAND MODEL YEAR'",
+                "example": "catalytic converter for Toyota Camry 2019",
+                "input_received": input_str
+            })
+        
         result = find_replacement_parts(vehicle, part_name)
         return json.dumps(result, indent=2)
+    except json.JSONDecodeError:
+        # Failed JSON fallback
+        return json.dumps({
+            "error": "Invalid format. Use: 'PART_NAME for BRAND MODEL YEAR'",
+            "example": "catalytic converter for Toyota Camry 2019",
+            "input_received": input_str
+        })
     except Exception as e:
-        return json.dumps({"error": f"Invalid input format: {str(e)}"})
+        logger.error(f"Error in find_parts_wrapper: {e}")
+        return json.dumps({"error": f"Error: {str(e)}"})
 
 
-def query_issues_wrapper(input_str: str) -> str:
+def query_issues_wrapper(vehicle_info: str) -> str:
     """
     Wrapper for known issues query.
-    Input format: JSON string with 'brand', 'model', optional 'year'
-    Example: '{"brand": "Toyota", "model": "Corolla", "year": 2018}'
+    Input format: Space-separated "brand model year"
+    Example: 'Toyota Camry 2019' or 'Honda Civic'
     """
     try:
-        data = json.loads(input_str)
-        brand = data.get('brand', '')
-        model = data.get('model', '')
-        year = data.get('year')
+        parts = vehicle_info.strip().split()
+        brand = parts[0] if len(parts) > 0 else ""
+        model = parts[1] if len(parts) > 1 else ""
+        year = None
+        try:
+            year = int(parts[2]) if len(parts) > 2 else None
+        except ValueError:
+            pass
+        
+        if not brand or not model:
+            return json.dumps({
+                "error": "Invalid format. Use: 'Brand Model Year' (e.g., 'Toyota Camry 2019')",
+                "input_received": vehicle_info
+            })
+        
         result = query_known_issues(brand, model, year)
         return json.dumps(result, indent=2)
     except Exception as e:
-        return json.dumps({"error": f"Invalid input format: {str(e)}"})
+        logger.error(f"Error in query_issues_wrapper: {e}")
+        return json.dumps({"error": f"Error: {str(e)}"})
 
 
 def generate_estimate_wrapper(input_str: str) -> str:
@@ -118,11 +196,13 @@ cost_calculator_tool = Tool(
     description="""
     Calculate the total cost of a repair including parts, labor, and fees.
     
-    Input: JSON string with:
-    - "parts": List of part IDs or names (e.g., ["CAT-001", "BRK-001"])
-    - "labor_hours": Estimated labor time as a number (e.g., 2.5)
+    Input: "parts: PART1, PART2, PART3 labor: HOURS"
+    - PART1, PART2, etc: Part IDs or names (e.g., CAT-001, BRK-001)
+    - HOURS: Estimated labor time in hours (e.g., 2.5, 3)
     
-    Example: '{"parts": ["CAT-001"], "labor_hours": 2.5}'
+    Examples:
+    - "parts: CAT-001 labor: 2.5"
+    - "parts: CAT-001, O2-SENSOR, BRK-001 labor: 3"
     
     Returns: Detailed cost breakdown including:
     - Parts cost with details
@@ -141,11 +221,16 @@ parts_finder_tool = Tool(
     description="""
     Find replacement parts compatible with a specific vehicle.
     
-    Input: JSON string with:
-    - "vehicle": Dict with "brand", "model", "year" (e.g., {"brand": "Toyota", "model": "Corolla", "year": "2018"})
-    - "part_name": Name or category of part (e.g., "catalytic converter", "brake pads")
+    Input: "PART_NAME for BRAND MODEL YEAR"
+    - PART_NAME: Name or category of part (e.g., catalytic converter, brake pads, alternator)
+    - BRAND: Vehicle brand (e.g., Toyota, Honda)
+    - MODEL: Vehicle model (e.g., Camry, Civic)
+    - YEAR: Optional year (e.g., 2019)
     
-    Example: '{"vehicle": {"brand": "Toyota", "model": "Corolla", "year": "2018"}, "part_name": "catalytic converter"}'
+    Examples:
+    - "catalytic converter for Toyota Camry 2019"
+    - "brake pads for Honda Civic 2018"
+    - "alternator for Ford Focus" (without year)
     
     Returns: List of compatible parts with:
     - Part names and IDs
@@ -163,12 +248,15 @@ known_issues_tool = Tool(
     description="""
     Query database of common/known issues for specific vehicle makes and models.
     
-    Input: JSON string with:
-    - "brand": Vehicle brand (e.g., "Toyota")
-    - "model": Vehicle model (e.g., "Corolla")
-    - "year": Optional year (e.g., 2018)
+    Input: Space-separated format "BRAND MODEL YEAR"
+    - BRAND: Vehicle brand (e.g., Toyota, Honda, Ford)
+    - MODEL: Vehicle model (e.g., Corolla, Civic, Focus)
+    - YEAR: Optional year (e.g., 2018, 2019, 2020)
     
-    Example: '{"brand": "Toyota", "model": "Corolla", "year": 2018}'
+    Examples:
+    - "Toyota Camry 2019"
+    - "Honda Civic 2018"
+    - "Ford Focus" (without year)
     
     Returns: List of known common issues including:
     - Issue description

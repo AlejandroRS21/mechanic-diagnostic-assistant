@@ -13,14 +13,13 @@ from datetime import datetime
 from src.agent.mechanic_agent import create_agent
 from src.monitoring.langfuse_config import setup_langfuse
 from src.utils.helpers import get_logger
+from src.utils.language_detector import LanguageDetector
 
 # Initialize Langfuse monitoring
 langfuse_config = setup_langfuse()
 
 logger = get_logger(__name__)
 
-# Global agent instance
-agent = None
 # Global agent instance
 agent = None
 
@@ -42,9 +41,13 @@ def initialize_agent():
 def chat_with_agent(message: str, history: List[Dict]) -> tuple:
     """Process message and return response with metadata."""
     if not message.strip():
-        return history, "", "---", "{}"
+        return history, "", "---", "{}", "ℹ️ Listo"
     
     current_agent = initialize_agent()
+    
+    # Detect language
+    detected_lang = LanguageDetector.detect_language(message)
+    lang_name = LanguageDetector.get_language_name(detected_lang)
     
     # Add user message
     history.append({"role": "user", "content": message})
@@ -58,7 +61,6 @@ def chat_with_agent(message: str, history: List[Dict]) -> tuple:
     history.append({"role": "assistant", "content": response})
     
     # Format steps for display
-    # Format steps for display
     steps_md = format_steps_timeline(steps)
     
     # Add sources to steps display if available
@@ -68,9 +70,9 @@ def chat_with_agent(message: str, history: List[Dict]) -> tuple:
         
     steps_json = json.dumps(steps, indent=2) if steps else "{}"
     
-    # Get current model name
+    # Get current model name and detected language
     model_name = current_agent.current_model_name if hasattr(current_agent, 'current_model_name') else "Unknown"
-    status_msg = f"ℹ️ Modelo actual: {model_name}"
+    status_msg = f"🤖 {model_name} | 🌐 {lang_name}"
     
     return history, "", steps_md, steps_json, status_msg
 
@@ -136,8 +138,6 @@ def format_sources(sources: List[Dict]) -> str:
 def reset_chat():
     """Reset conversation."""
     global agent
-    if agent:
-        agent.reset_conversation()
     if agent:
         agent.reset_conversation()
     return [], "", "### 💭 Listo para nueva consulta", "{}", "ℹ️ Listo"
@@ -333,13 +333,13 @@ with gr.Blocks(title="🔧 Asistente de Diagnóstico Automotriz") as demo:
 
 if __name__ == "__main__":
     logger.info("🚀 Iniciando Asistente de Diagnóstico Automotriz...")
-    logger.info("📥 Inicializando agente (primera vez puede tardar ~5 min)...")
-    
-    # Pre-initialize
-    initialize_agent()
-    
-    logger.info("✅ Agente inicializado")
     logger.info("🌐 Lanzando interfaz Gradio...")
+    logger.info("⏳ Agente se inicializará en primer mensaje (puede tardar ~1 min en primera carga)...")
+    
+    # Don't pre-initialize - let it load on first use for faster startup
+    # initialize_agent()
+    
+    logger.info("✅ Interfaz lista")
     
     demo.launch(
         server_name="0.0.0.0",

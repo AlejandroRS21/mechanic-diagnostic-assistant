@@ -14,6 +14,7 @@ from src.agent.prompts import SYSTEM_PROMPT, GREETING
 from src.rag.knowledge_base import initialize_knowledge_base
 from src.rag.retriever import KnowledgeRetriever
 from src.utils.helpers import get_logger
+from src.utils.language_detector import LanguageDetector, LanguageInstructions
 from src.utils.config import OPENROUTER_API_KEY, TOP_K_RESULTS
 from src.utils.model_manager import ModelManager
 
@@ -161,8 +162,8 @@ Thought: {{agent_scratchpad}}"""
             tools=self.tools,
             memory=self.memory,
             verbose=verbose,
-            max_iterations=15,  # Increased from 10 to allow more complex reasoning
-            handle_parsing_errors=True,
+            max_iterations=10,  # Reduced to prevent infinite loops
+            handle_parsing_errors="Invalid Format:",  # More specific error handling
             return_intermediate_steps=True,
             callbacks=callbacks  # Add Langfuse tracing
         )
@@ -186,6 +187,7 @@ Thought: {{agent_scratchpad}}"""
     def chat(self, message: str) -> Dict[str, Any]:
         """
         Send a message to the agent and get a response.
+        Detects the language of the user input and responds in the same language.
         
         Args:
             message: Message from the mechanic
@@ -195,20 +197,29 @@ Thought: {{agent_scratchpad}}"""
         """
         logger.info(f"Processing message: {message[:100]}...")
         
+        # Detect language of user input
+        detected_language = LanguageDetector.detect_language(message)
+        language_name = LanguageDetector.get_language_name(detected_language)
+        language_instruction = LanguageInstructions.get_language_instruction(detected_language)
+        logger.info(f"Detected language: {language_name} ({detected_language})")
+        
         # Augment input with knowledge base context if relevant
         # (Check if message contains keywords that should trigger KB search)
         kb_context = ""
         sources = []
-        keywords = ["code", "P0", "symptom", "noise", "leak", "problem", "issue", "manual", "guide", "pdf"]
+        keywords = ["code", "P0", "symptom", "noise", "leak", "problem", "issue", "manual", "guide", "pdf",
+                   "código", "síntoma", "ruido", "fuga", "problema", "asunto", "manual",  # Spanish
+                   "código", "sintoma", "barulho", "vazamento", "problema", "manual",  # Portuguese
+                   "code", "symptôme", "bruit", "fuite", "problème", "manuel"]  # French
         if any(keyword in message.lower() for keyword in keywords):
             logger.info("Augmenting with knowledge base context...")
             kb_context, sources = self.consult_knowledge_base(message)
         
-        # Prepare full input
+        # Prepare full input with language instruction
         if kb_context:
-            full_input = f"{message}\n\nRelevant knowledge base information:\n{kb_context}"
+            full_input = f"{message}\n\nRelevant knowledge base information:\n{kb_context}\n\n[SYSTEM: {language_instruction}]"
         else:
-            full_input = message
+            full_input = f"{message}\n\n[SYSTEM: {language_instruction}]"
         
         # Retry loop for model failover
         max_retries = 3

@@ -21,15 +21,20 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
-# LangSmith Monitoring Configuration
-LANGCHAIN_TRACING_V2 = os.getenv("LANGCHAIN_TRACING_V2", "true")
-LANGCHAIN_ENDPOINT = os.getenv("LANGCHAIN_ENDPOINT", "https://api.smith.langchain.com")
-LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY", "")
-LANGCHAIN_PROJECT = os.getenv("LANGCHAIN_PROJECT", "mechanic-diagnostic-assistant")
+# Langfuse Monitoring Configuration
+LANGFUSE_SECRET_KEY = os.getenv("LANGFUSE_SECRET_KEY", "")
+LANGFUSE_PUBLIC_KEY = os.getenv("LANGFUSE_PUBLIC_KEY", "")
+LANGFUSE_BASE_URL = os.getenv("LANGFUSE_BASE_URL", "https://cloud.langfuse.com")
 
 # Application Settings
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
-CHROMA_DB_PATH = os.getenv("CHROMA_DB_PATH", "./chroma_db")
+
+# Qdrant Configuration
+QDRANT_PATH = os.getenv("QDRANT_PATH", "./qdrant_db")
+QDRANT_COLLECTION_NAME = os.getenv("QDRANT_COLLECTION_NAME", "automotive_knowledge")
+QDRANT_HOST = os.getenv("QDRANT_HOST", None)  # None = use local file storage
+QDRANT_PORT = int(os.getenv("QDRANT_PORT", "6333"))
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY", None)
 
 # Project Paths
 DATA_DIR = BASE_DIR / "data"
@@ -61,8 +66,6 @@ def validate_config():
         missing.append("OPENROUTER_API_KEY")
     if not OPENAI_API_KEY:
         missing.append("OPENAI_API_KEY")
-    if not LANGCHAIN_API_KEY:
-        missing.append("LANGCHAIN_API_KEY")
     
     if missing:
         raise ValueError(
@@ -77,8 +80,8 @@ def get_config_summary():
     return {
         "openrouter_model": OPENROUTER_MODEL,
         "embedding_model": EMBEDDING_MODEL,
-        "chroma_db_path": CHROMA_DB_PATH,
-        "langchain_project": LANGCHAIN_PROJECT,
+        "qdrant_path": QDRANT_PATH,
+        "qdrant_collection": QDRANT_COLLECTION_NAME,
         "debug": DEBUG,
     }
 

@@ -350,7 +350,7 @@ RAG is consulted at multiple points:
        │
        ▼
 ┌──────────────────────────────────┐
-│       LangSmith Monitoring       │
+│       Langfuse Monitoring       │
 │  - Trace all LLM calls           │
 │  - Track tool executions         │
 │  - Log token usage               │
@@ -421,7 +421,7 @@ Each tool has a specific function:
    - Tool execution (if needed) → Get results
    - LLM generation → Natural language response
 4. **Response** → Back to Gradio
-5. **All steps** → Logged to LangSmith
+5. **All steps** → Logged to Langfuse
 
 ---
 
@@ -568,9 +568,9 @@ Agent: [Remembers it's about cat converter, searches aftermarket options]
 
 ##6. Monitoring & Metrics
 
-### 6.1 LangSmith Integration
+### 6.1 Langfuse Integration
 
-**Setup** (`langsmith_config.py`):
+**Setup** (`langfuse_config.py`):
 
 ```python
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
@@ -616,7 +616,7 @@ os.environ["LANGCHAIN_PROJECT"] = "mechanic-diagnostic-assistant"
 
 ### 6.3 Example Trace
 
-**Dashboard View** (LangSmith):
+**Dashboard View** (Langfuse):
 
 ```
 Run: mechanic-diagnostic-assistant-run-abc123
