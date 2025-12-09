@@ -28,7 +28,7 @@ Un asistente de IA inteligente que ayuda a diagnosticar problemas automotrices u
 - Usuario pregunta en cualquier idioma, recibe respuesta en el mismo
 
 ### 📚 Base de Conocimiento Inteligente
-- 42+ documentos especializados
+- Base de datos de  documentos especializados
 - Búsqueda semántica con Qdrant
 - Recuperación de información relevante automática
 
