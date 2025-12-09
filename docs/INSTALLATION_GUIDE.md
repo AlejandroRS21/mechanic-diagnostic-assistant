@@ -31,9 +31,9 @@ pip install -r requirements.txt
 This will install:
 - LangChain 0.3.0
 - Gradio 6.0.0
-- ChromaDB 0.5.0
+- Qdrant 1.7.0+
 - OpenAI SDK
-- LangSmith
+- Langfuse
 - And all other dependencies
 
 **Expected time**: 2-5 minutes
@@ -55,17 +55,16 @@ OPENROUTER_MODEL=openai/gpt-4
 # OpenAI API (for embeddings)
 OPENAI_API_KEY=sk-your-openai-key-here
 
-# LangSmith Monitoring
-LANGCHAIN_TRACING_V2=true
-LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
-LANGCHAIN_API_KEY=your-langsmith-key-here
-LANGCHAIN_PROJECT=mechanic-diagnostic-assistant
+# Langfuse Monitoring (opcional)
+LANGFUSE_SECRET_KEY=sk-lf-your-secret-key-here
+LANGFUSE_PUBLIC_KEY=pk-lf-your-public-key-here
+LANGFUSE_BASE_URL=https://cloud.langfuse.com
 ```
 
 **Where to get API keys**:
 - OpenRouter: https://openrouter.ai/keys
 - OpenAI: https://platform.openai.com/api-keys
-- LangSmith: https://smith.langchain.com/settings
+- Langfuse: https://cloud.langfuse.com (opcional)
 
 ### Step 6: Test Individual Components
 
@@ -103,7 +102,7 @@ python -c "from src.rag.knowledge_base import initialize_knowledge_base; kb = in
 ```
 
 **Expected time**: 2-3 minutes on first run  
-**What happens**: Creates ChromaDB vector database in `./chroma_db/`
+**What happens**: Creates Qdrant vector database in `./qdrant_db/`
 
 Expected output:
 ```
@@ -127,7 +126,7 @@ python app.py
 
 Expected output:
 ```
-✅ LangSmith tracing enabled for project: mechanic-diagnostic-assistant
+✅ Langfuse tracing enabled for project: mechanic-diagnostic-assistant
    View traces at: https://smith.langchain.com/
 Loading existing knowledge base...
 ✅ Knowledge base loaded successfully
@@ -203,7 +202,7 @@ pip install -r requirements.txt
 ### "Missing required environment variables"
 **Solution**: Check your `.env` file has all API keys set correctly
 
-### ChromaDB/Embeddings errors
+### Qdrant/Embeddings errors
 **Solution**: 
 1. Make sure OpenAI API key is valid
 2. Try rebuilding knowledge base:
@@ -216,11 +215,11 @@ python -c "from src.rag.knowledge_base import initialize_knowledge_base; initial
 1. Check if port 7860 is already in use
 2. Try changing port in app.py (server_port parameter)
 
-### LangSmith not showing traces
+### Langfuse not showing traces
 **Solution**:
-1. Verify LANGCHAIN_TRACING_V2=true in .env
-2. Check LangSmith API key is valid
-3. Check project name matches in dashboard
+1. Verify LANGFUSE_SECRET_KEY and LANGFUSE_PUBLIC_KEY in .env
+2. Check Langfuse keys are valid at https://cloud.langfuse.com
+3. Check project configuration in dashboard
 
 ---
 
@@ -228,14 +227,14 @@ python -c "from src.rag.knowledge_base import initialize_knowledge_base; initial
 
 Before recording your demo video, verify:
 
-- [ ] Dependencies installed (`pip list` shows langchain, gradio, chromadb)
+- [ ] Dependencies installed (`pip list` shows langchain, gradio, qdrant-client)
 - [ ] API keys configured in `.env`
 - [ ] Knowledge base initialized (chroma_db/ directory exists)
 - [ ] Application runs without errors (`python app.py`)
 - [ ] Can open http://localhost:7860 in browser
 - [ ] Test query works and agent responds
 - [ ] Tools are executed (visible in right panel)
-- [ ] LangSmith traces appear in dashboard
+- [ ] Langfuse traces appear in dashboard (opcional)
 - [ ] All 5 tools listed in interface documentation
 
 ---
@@ -264,7 +263,7 @@ Before recording your demo video, verify:
 - Show diagnosis and cost calculation
 
 **03:30 - 04:30**: Show Monitoring
-- Open LangSmith dashboard
+- Open Langfuse dashboard at https://cloud.langfuse.com
 - Show recent traces
 - Click into a trace to show details
 - Show tool executions logged

@@ -149,7 +149,7 @@ mechanic-diagnostic-assistant/
 
 - **LLM**: GPT-4 (via OpenRouter API)
 - **Embeddings**: OpenAI text-embedding-3-small
-- **Vector DB**: ChromaDB 0.5.0
+- **Vector DB**: Qdrant 1.7.0+
 - **Framework**: LangChain 0.3.0
 - **Interface**: Gradio 6.0.0
 - **Monitoring**: Langfuse
@@ -159,7 +159,7 @@ mechanic-diagnostic-assistant/
 All agent interactions are traced with Langfuse. View traces at:
 - https://smith.langchain.com/
 
-Set `LANGCHAIN_TRACING_V2=true` in `.env` to enable tracing.
+Configure Langfuse keys in `.env` to enable tracing (see Configuration section).
 
 ## 📚 Documentation
 
@@ -202,4 +202,4 @@ Academic Project - NLP & Autonomous Agents Course
 
 ---
 
-**Built with ❤️ using LangChain, ChromaDB, and Gradio**
+**Built with ❤️ using LangChain, Qdrant, and Gradio**

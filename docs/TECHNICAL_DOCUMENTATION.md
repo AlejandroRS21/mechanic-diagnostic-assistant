@@ -144,7 +144,7 @@ the threshold. For your 2018 Corolla, the most common causes are [...]"
 
 **Process**:
 1. Mechanic query → Embedded as vector (OpenAI embeddings)
-2. Vector similarity search in ChromaDB
+2. Vector similarity search in Qdrant
 3. Top-K most relevant documents retrieved
 4. Context injected into LLM prompt
 
@@ -321,13 +321,13 @@ RAG is consulted at multiple points:
 │   RAG System     │      │    Tool Suite      │
 │                  │      │  (5 Tools)         │
 │ ┌──────────────┐ │      │                    │
-│ │  ChromaDB    │ │      │  1. search_code    │
+│ │   Qdrant     │ │      │  1. search_code    │
 │ │  Vector DB   │ │      │  2. calc_cost      │
 │ └──────────────┘ │      │  3. find_parts     │
 │                  │      │  4. known_issues   │
 │ ┌──────────────┐ │      │  5. gen_estimate   │
 │ │  Embeddings  │ │      │                    │
-│ │ (OpenAI)     │ │      └────────────────────┘
+│ │(HuggingFace) │ │      └────────────────────┘
 │ └──────────────┘ │               │
 │                  │               │
 │ ┌──────────────┐ │               ▼
@@ -390,7 +390,7 @@ RAG is consulted at multiple points:
 
 **Components**:
 1. **Document Loader** (`document_loader.py`): Converts JSON/TXT → LangChain Documents
-2. **Knowledge Base** (`knowledge_base.py`): Manages ChromaDB, embeddings, indexing
+2. **Knowledge Base** (`knowledge_base.py`): Manages Qdrant, embeddings, indexing
 3. **Retriever** (`retriever.py`): Similarity search wrapper
 
 **Parameters**:
@@ -573,10 +573,9 @@ Agent: [Remembers it's about cat converter, searches aftermarket options]
 **Setup** (`langfuse_config.py`):
 
 ```python
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
-os.environ["LANGCHAIN_API_KEY"] = "..."
-os.environ["LANGCHAIN_PROJECT"] = "mechanic-diagnostic-assistant"
+os.environ["LANGFUSE_SECRET_KEY"] = "..."
+os.environ["LANGFUSE_PUBLIC_KEY"] = "..."
+os.environ["LANGFUSE_BASE_URL"] = "https://cloud.langfuse.com"
 ```
 
 **What is Traced**:

@@ -234,7 +234,6 @@ Interface:
 
 Monitoring:
 ├── langfuse>=2.0.0                     # Production tracing
-└── langsmith>=0.1.17                   # Development tracing
 
 Utilities:
 ├── python-dotenv==1.0.0                # Environment config
@@ -374,8 +373,7 @@ mechanic-diagnostic-assistant/
 │   │   └── retriever.py            # Retrieval logic
 │   │
 │   ├── monitoring/
-│   │   ├── langfuse_config.py      # Setup Langfuse
-│   │   └── langsmith_config.py     # Setup LangSmith (legacy)
+│   │   └── langfuse_config.py      # Setup Langfuse
 │   │
 │   └── utils/
 │       ├── config.py               # Config centralizada

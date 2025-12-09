@@ -5,7 +5,15 @@ Loads and processes documents from various sources (JSON, TXT).
 
 import json
 from typing import List
-from langchain.docstore.document import Document
+
+try:
+    from langchain.schema import Document
+except ImportError:
+    try:
+        from langchain_core.documents import Document
+    except ImportError:
+        from langchain.docstore.document import Document
+        
 from pathlib import Path
 from langchain_community.document_loaders import PyPDFLoader
 

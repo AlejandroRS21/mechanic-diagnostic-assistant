@@ -4,7 +4,14 @@ Retriever configuration for querying the knowledge base.
 
 from typing import List, Dict
 from qdrant_client import QdrantClient
-from langchain.docstore.document import Document
+
+try:
+    from langchain.schema import Document
+except ImportError:
+    try:
+        from langchain_core.documents import Document
+    except ImportError:
+        from langchain.docstore.document import Document
 
 from src.utils.helpers import get_logger
 from src.utils.config import TOP_K_RESULTS, QDRANT_HOST, QDRANT_PORT, QDRANT_API_KEY, QDRANT_COLLECTION_NAME
@@ -97,11 +104,37 @@ class KnowledgeRetriever:
         
         sources = []
         for doc in docs:
+            metadata = doc.metadata or {}
+            
+            # Build source title based on document type
+            source_type = metadata.get("type", "").lower()
+            source_name = metadata.get("source", "unknown").lower()
+            
+            # Create descriptive title
+            if source_type == "diagnostic_code":
+                title = f"OBD Code {metadata.get('code', 'Unknown')}"
+            elif source_type == "symptom":
+                title = f"Symptom: {metadata.get('symptom', 'Unknown')}"
+            elif source_type == "repair_guide":
+                title = f"Repair Guide: {metadata.get('repair_name', 'Unknown')}"
+            elif "pdf" in source_name or "manual" in source_name:
+                title = metadata.get("filename", "Technical Manual")
+            else:
+                # Fallback to repair_name, symptom, code, or filename
+                title = (
+                    metadata.get("repair_name") or 
+                    metadata.get("symptom") or 
+                    metadata.get("code") or 
+                    metadata.get("filename") or 
+                    f"Document ({source_name})"
+                )
+            
             sources.append({
-                "source": doc.metadata.get("source", "unknown"),
-                "title": doc.metadata.get("repair_name") or doc.metadata.get("symptom") or doc.metadata.get("code") or doc.metadata.get("filename") or "Unknown Document",
-                "type": doc.metadata.get("type", "unknown"),
-                "page": doc.metadata.get("page", 1) if "page" in doc.metadata else None
+                "source": source_name,
+                "title": title,
+                "type": source_type,
+                "page": metadata.get("page"),
+                "score": round(metadata.get("score", 0), 3)
             })
             
         return context, sources

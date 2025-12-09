@@ -7,7 +7,14 @@ from langchain.agents import AgentExecutor, create_react_agent
 from langchain_openai import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
-from langchain.schema import AgentAction, AgentFinish
+
+try:
+    from langchain.schema import AgentAction, AgentFinish
+except ImportError:
+    try:
+        from langchain_core.agents import AgentAction, AgentFinish
+    except ImportError:
+        from langchain_core.schema import AgentAction, AgentFinish
 
 from src.agent.tools import get_all_tools
 from src.agent.prompts import SYSTEM_PROMPT, GREETING
@@ -58,7 +65,7 @@ class MechanicAgent:
         logger.info("Loading knowledge base...")
         self.knowledge_base = initialize_knowledge_base(rebuild=False)
         self.retriever = KnowledgeRetriever(
-            self.knowledge_base.get_vectorstore(),
+            self.knowledge_base,
             k=TOP_K_RESULTS
         )
         
@@ -98,43 +105,37 @@ class MechanicAgent:
     def _create_agent(self, verbose: bool = True) -> AgentExecutor:
         """Create the ReAct agent with tools."""
         
-        # Create ReAct prompt template
+        # Create ReAct prompt template with clearer format
         template = f"""{SYSTEM_PROMPT}
 
 You have access to the following tools:
 
 {{tools}}
 
-Use the following format:
+**RESPOND USING THIS EXACT FORMAT:**
 
-Question: the input question or problem from the mechanic
-Thought: think about what information you need and which tools to use
-Action: the action to take, should be one of [{{tool_names}}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer or next step
-Final Answer: the final answer to the original input question
+Thought: What do I need to do?
+Action: the name of the tool to use (must be one of: {{tool_names}})
+Action Input: the input for this tool
+Observation: the result will be provided
 
-IMPORTANT:
-- You must ALWAYS use the exact tool names listed above.
-- If you decide to use a tool, you MUST use the "Action:" and "Action Input:" keywords.
-- If you have enough information, you MUST use the "Final Answer:" keyword.
-- Do NOT output numbered lists or conversational text inside the Thought block unless it leads to an Action or Final Answer.
-- Ensure your "Action Input" is a simple string.
+(You can repeat Thought/Action/Observation as many times as needed)
 
-Additionally, you can consult the knowledge base for relevant information. The knowledge base contains:
-- OBD-II diagnostic codes
-- Common automotive symptoms and causes
-- Repair procedures
+When you have the answer:
+Final Answer: your response to the user
 
-Begin! Remember to be professional, technical, and helpful.
+**KEY RULES:**
+1. Use tool names EXACTLY from the list above
+2. Always provide Action and Action Input on separate lines
+3. Action Input should be a simple string
+4. Only use Final Answer when you have the answer
+5. Think step-by-step
 
 Previous conversation:
 {{chat_history}}
 
-Question: {{input}}
-Thought: {{agent_scratchpad}}"""
+{{input}}
+Thought:{{agent_scratchpad}}"""
         
         prompt = PromptTemplate(
             template=template,
@@ -162,10 +163,11 @@ Thought: {{agent_scratchpad}}"""
             tools=self.tools,
             memory=self.memory,
             verbose=verbose,
-            max_iterations=10,  # Reduced to prevent infinite loops
-            handle_parsing_errors="Invalid Format:",  # More specific error handling
+            max_iterations=8,  # Prevent infinite loops
+            handle_parsing_errors=True,  # Let LangChain handle errors gracefully
             return_intermediate_steps=True,
-            callbacks=callbacks  # Add Langfuse tracing
+            callbacks=callbacks,  # Add Langfuse tracing
+            early_stopping_method="force"  # Force stop at max iterations
         )
         
         return agent_executor

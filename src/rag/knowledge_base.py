@@ -6,11 +6,24 @@ Handles document embedding and vector database creation/management.
 from typing import List, Optional
 from pathlib import Path
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+try:
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
+except ImportError:
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+    
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, VectorParams
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.docstore.document import Document
+from qdrant_client.models import Distance, VectorParams, PointStruct
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
+try:
+    from langchain.schema import Document
+except ImportError:
+    try:
+        from langchain_core.documents import Document
+    except ImportError:
+        from langchain.docstore.document import Document
+        
+from langchain_community.vectorstores import Qdrant
 
 from src.utils.helpers import get_logger
 from src.utils.config import (
@@ -120,7 +133,7 @@ class KnowledgeBase:
         chunks = self.text_splitter.split_documents(documents)
         logger.info(f"Created {len(chunks)} chunks from {len(documents)} documents")
         
-        # Create vector store
+        # Create vector store using Qdrant directly
         logger.info("Creating embeddings and building vector database...")
         logger.info("(This may take a few minutes on first run...)")
         
@@ -135,33 +148,41 @@ class KnowledgeBase:
             self.client = QdrantClient(path=self.persist_directory)
         
         # Get embeddings for all chunks
-        embeddings_list = self.embeddings.embed_documents([chunk.page_content for chunk in chunks])
+        logger.info("Computing embeddings for all chunks...")
+        texts = [chunk.page_content for chunk in chunks]
+        metadatas = [chunk.metadata for chunk in chunks]
+        embeddings = self.embeddings.embed_documents(texts)
         
-        # Create or recreate collection
+        # Create collection if it doesn't exist
         try:
-            self.client.delete_collection(collection_name=self.collection_name)
+            collection_info = self.client.get_collection(self.collection_name)
+            logger.info(f"Collection {self.collection_name} already exists, recreating...")
+            self.client.delete_collection(self.collection_name)
         except Exception:
-            pass
+            pass  # Collection doesn't exist yet
         
         # Create collection with proper vector size
-        vector_size = len(embeddings_list[0]) if embeddings_list else 384
+        vector_size = len(embeddings[0]) if embeddings else 384
         self.client.create_collection(
             collection_name=self.collection_name,
-            vectors_config=VectorParams(size=vector_size, distance=Distance.COSINE),
+            vectors_config=VectorParams(size=vector_size, distance=Distance.COSINE)
         )
         
-        # Upsert vectors with metadata
+        # Upsert points to collection
+        logger.info(f"Upserting {len(embeddings)} embeddings to collection...")
+        
         points = []
-        for i, (chunk, embedding) in enumerate(zip(chunks, embeddings_list)):
-            point = {
-                "id": i,
-                "vector": embedding,
-                "payload": {
-                    "text": chunk.page_content,
-                    "source": chunk.metadata.get("source", "unknown"),
-                    "page": chunk.metadata.get("page", 0)
+        for idx, (embedding, text, metadata) in enumerate(zip(embeddings, texts, metadatas)):
+            point = PointStruct(
+                id=idx,
+                vector=embedding,
+                payload={
+                    "page_content": text,
+                    "source": metadata.get("source", "unknown"),
+                    "page": metadata.get("page", 0),
+                    **metadata  # Include all metadata
                 }
-            }
+            )
             points.append(point)
         
         self.client.upsert(
@@ -169,7 +190,6 @@ class KnowledgeBase:
             points=points
         )
         
-        self.vectorstore = self.client
         logger.info(f"✅ Knowledge base built and saved to Qdrant collection '{self.collection_name}'")
     
     def _load_database(self):
@@ -184,7 +204,13 @@ class KnowledgeBase:
             else:
                 self.client = QdrantClient(path=self.persist_directory)
             
-            self.vectorstore = self.client
+            # Load vectorstore from existing collection
+            self.vectorstore = Qdrant(
+                client=self.client,
+                collection_name=self.collection_name,
+                embeddings=self.embeddings
+            )
+            
             logger.info("✅ Knowledge base loaded successfully")
         except Exception as e:
             logger.error(f"Failed to load database: {e}")
@@ -202,7 +228,7 @@ class KnowledgeBase:
         Returns:
             List of relevant documents
         """
-        if not self.vectorstore or not self.client:
+        if not self.client:
             raise ValueError("Vector store not initialized")
         
         logger.info(f"Searching knowledge base for: '{query}'")
@@ -210,23 +236,39 @@ class KnowledgeBase:
         # Embed the query
         query_embedding = self.embeddings.embed_query(query)
         
-        # Search in Qdrant
-        search_results = self.client.search(
+        # Search using Qdrant client's query method
+        search_results = self.client.query_points(
             collection_name=self.collection_name,
-            query_vector=query_embedding,
+            query=query_embedding,
             limit=k
         )
         
-        # Convert to Document objects
+        # Convert scored points to Document objects
         documents = []
-        for result in search_results:
+        for point in search_results.points:
+            # Extract ALL metadata from the payload
+            payload = point.payload or {}
+            page_content = payload.get("page_content", "")
+            
+            # Build metadata dictionary with all available fields
+            metadata = {
+                "score": point.score
+            }
+            
+            # Add all fields from payload except page_content
+            for key, value in payload.items():
+                if key != "page_content":
+                    metadata[key] = value
+            
+            # Ensure essential fields have defaults
+            if "source" not in metadata:
+                metadata["source"] = "unknown"
+            if "page" not in metadata:
+                metadata["page"] = 0
+            
             doc = Document(
-                page_content=result.payload["text"],
-                metadata={
-                    "source": result.payload.get("source", "unknown"),
-                    "page": result.payload.get("page", 0),
-                    "score": result.score
-                }
+                page_content=page_content,
+                metadata=metadata
             )
             documents.append(doc)
         

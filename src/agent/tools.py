@@ -172,126 +172,31 @@ def generate_estimate_wrapper(input_str: str) -> str:
 
 diagnostic_code_tool = Tool(
     name="search_diagnostic_code",
-    description="""
-    Search for information about an OBD-II diagnostic trouble code (DTC).
-    
-    Input: A diagnostic code as a string (e.g., "P0420", "P0300")
-    
-    Returns: Detailed information including:
-    - Code description
-    - System affected
-    - Severity level
-    - Common causes
-    - Typical repair cost range
-    - Diagnostic steps
-    
-    Use this tool when the mechanic mentions a specific OBD-II code or when you need
-    to look up what a code means.
-    """,
+    description="Search OBD-II diagnostic code. Input: code like P0420 or P0300. Returns: description, causes, cost, and steps.",
     func=search_code_wrapper
 )
 
 cost_calculator_tool = Tool(
     name="calculate_repair_cost",
-    description="""
-    Calculate the total cost of a repair including parts, labor, and fees.
-    
-    Input: "parts: PART1, PART2, PART3 labor: HOURS"
-    - PART1, PART2, etc: Part IDs or names (e.g., CAT-001, BRK-001)
-    - HOURS: Estimated labor time in hours (e.g., 2.5, 3)
-    
-    Examples:
-    - "parts: CAT-001 labor: 2.5"
-    - "parts: CAT-001, O2-SENSOR, BRK-001 labor: 3"
-    
-    Returns: Detailed cost breakdown including:
-    - Parts cost with details
-    - Labor cost
-    - Shop fees and taxes
-    - Grand total
-    
-    Use this tool to calculate repair costs when you know what parts are needed
-    and how long the repair will take.
-    """,
+    description="Calculate repair cost. Input: 'parts: PART1, PART2 labor: HOURS'. Example: 'parts: CAT-001, O2-SENSOR labor: 2.5'. Returns: breakdown of parts, labor, taxes, total.",
     func=calculate_cost_wrapper
 )
 
 parts_finder_tool = Tool(
     name="find_replacement_parts",
-    description="""
-    Find replacement parts compatible with a specific vehicle.
-    
-    Input: "PART_NAME for BRAND MODEL YEAR"
-    - PART_NAME: Name or category of part (e.g., catalytic converter, brake pads, alternator)
-    - BRAND: Vehicle brand (e.g., Toyota, Honda)
-    - MODEL: Vehicle model (e.g., Camry, Civic)
-    - YEAR: Optional year (e.g., 2019)
-    
-    Examples:
-    - "catalytic converter for Toyota Camry 2019"
-    - "brake pads for Honda Civic 2018"
-    - "alternator for Ford Focus" (without year)
-    
-    Returns: List of compatible parts with:
-    - Part names and IDs
-    - Prices (both OEM and aftermarket options)
-    - Warranty information
-    
-    Use this tool when you need to find what parts are available and their prices
-    for a specific vehicle.
-    """,
+    description="Find parts for a vehicle. Input: 'PART_NAME for BRAND MODEL YEAR'. Example: 'catalytic converter for Toyota Camry 2019'. Returns: available parts with prices and warranty.",
     func=find_parts_wrapper
 )
 
 known_issues_tool = Tool(
     name="query_known_issues",
-    description="""
-    Query database of common/known issues for specific vehicle makes and models.
-    
-    Input: Space-separated format "BRAND MODEL YEAR"
-    - BRAND: Vehicle brand (e.g., Toyota, Honda, Ford)
-    - MODEL: Vehicle model (e.g., Corolla, Civic, Focus)
-    - YEAR: Optional year (e.g., 2018, 2019, 2020)
-    
-    Examples:
-    - "Toyota Camry 2019"
-    - "Honda Civic 2018"
-    - "Ford Focus" (without year)
-    
-    Returns: List of known common issues including:
-    - Issue description
-    - Frequency (how common it is)
-    - Typical symptoms
-    - Additional notes
-    
-    Use this tool when you want to check if there are known common problems
-    for a particular vehicle that might explain the symptoms.
-    """,
+    description="Check known issues for a vehicle. Input: 'BRAND MODEL YEAR'. Example: 'Toyota Camry 2019'. Returns: list of common problems, symptoms, and notes.",
     func=query_issues_wrapper
 )
 
 estimate_generator_tool = Tool(
     name="generate_estimate",
-    description="""
-    Generate a formatted, professional repair estimate/quote for the customer.
-    
-    Input: JSON string with:
-    - "diagnosis": Description of the problem (string)
-    - "solution": Dict with repair details including parts list, labor_hours, and costs
-    - "vehicle_info": Optional dict with vehicle details
-    - "customer_name": Optional customer name (default: "Customer")
-    
-    Returns: Formatted estimate document with:
-    - Estimate number and date
-    - Diagnosis explanation
-    - Parts and labor breakdown
-    - Total cost
-    - Professional formatting
-    
-    Use this tool as the FINAL step when you have completed the diagnosis
-    and calculated costs, and you're ready to present a formal estimate to the mechanic
-    to show their customer.
-    """,
+    description="Generate professional repair estimate. Input: JSON with 'diagnosis', 'solution' (parts/labor/costs), optional 'vehicle_info' and 'customer_name'. Returns: formatted estimate document.",
     func=generate_estimate_wrapper
 )
 
