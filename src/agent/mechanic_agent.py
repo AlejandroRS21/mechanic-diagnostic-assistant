@@ -112,24 +112,26 @@ You have access to the following tools:
 
 {{tools}}
 
-**RESPOND USING THIS EXACT FORMAT:**
+**CRITICAL: RESPOND USING THIS EXACT FORMAT - NO OTHER TEXT ALLOWED:**
 
-Thought: What do I need to do?
-Action: the name of the tool to use (must be one of: {{tool_names}})
-Action Input: the input for this tool
-Observation: the result will be provided
+Thought: <what I need to do next>
+Action: <tool name from list: {{tool_names}}>
+Action Input: <simple input string for the tool>
+Observation: <will be provided by system>
 
-(You can repeat Thought/Action/Observation as many times as needed)
+**When ready to answer:**
+Thought: <I now have enough information>
+Final Answer: <your complete response>
 
-When you have the answer:
-Final Answer: your response to the user
+**STOP IMMEDIATELY AFTER Final Answer - DO NOT ADD ANY TEXT**
 
-**KEY RULES:**
-1. Use tool names EXACTLY from the list above
-2. Always provide Action and Action Input on separate lines
-3. Action Input should be a simple string
-4. Only use Final Answer when you have the answer
-5. Think step-by-step
+**CRITICAL RULES:**
+1. Use tool names EXACTLY as listed: {{tool_names}}
+2. Action and Action Input MUST be on separate lines
+3. Action Input must be plain text (no quotes, no formatting)
+4. After writing "Final Answer:", STOP - do not add ANY text or thoughts
+5. Never write "Thought:" after "Final Answer:"
+6. If you write Final Answer, your turn is OVER
 
 Previous conversation:
 {{chat_history}}
@@ -142,13 +144,18 @@ Thought:{{agent_scratchpad}}"""
             input_variables=["input", "tools", "tool_names", "agent_scratchpad", "chat_history"]
         )
         
-        # Create agent
-        agent = create_react_agent(
-            llm=self.llm,
-            tools=self.tools,
-            prompt=prompt
+        # Custom parsing error message
+        parsing_error_message = (
+            "Invalid format. Please use EXACTLY this format:\n"
+            "Thought: <what to do>\n"
+            "Action: <tool name>\n"
+            "Action Input: <input>\n\n"
+            "OR if ready to answer:\n"
+            "Thought: <reasoning>\n"
+            "Final Answer: <response>\n\n"
+            "STOP after Final Answer - do not add any text."
         )
-        
+
         # Get Langfuse callback if available
         try:
             from src.monitoring.langfuse_config import get_langfuse_handler
@@ -156,6 +163,25 @@ Thought:{{agent_scratchpad}}"""
             callbacks = [langfuse_handler] if langfuse_handler else []
         except:
             callbacks = []
+
+        # Use initialize_agent (more robust in this environment)
+        from langchain.agents import initialize_agent, AgentType
+        
+        agent = initialize_agent(
+            tools=self.tools,
+            llm=self.llm,
+            agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+            verbose=verbose,
+            max_iterations=10,
+            memory=self.memory,
+            handle_parsing_errors=parsing_error_message,
+            return_intermediate_steps=True,
+            callbacks=callbacks,
+            early_stopping_method="force",
+            agent_kwargs={
+                "prefix": SYSTEM_PROMPT
+            }
+        )
         
         # Create executor with callbacks
         agent_executor = AgentExecutor(
@@ -163,14 +189,14 @@ Thought:{{agent_scratchpad}}"""
             tools=self.tools,
             memory=self.memory,
             verbose=verbose,
-            max_iterations=8,  # Prevent infinite loops
-            handle_parsing_errors=True,  # Let LangChain handle errors gracefully
+            max_iterations=10,  # Increased to allow more tool usage
+            handle_parsing_errors=parsing_error_message,  # Custom error message
             return_intermediate_steps=True,
             callbacks=callbacks,  # Add Langfuse tracing
             early_stopping_method="force"  # Force stop at max iterations
         )
         
-        return agent_executor
+        return agent
     
     def consult_knowledge_base(self, query: str) -> tuple[str, List[Dict]]:
         """

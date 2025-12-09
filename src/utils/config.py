@@ -29,6 +29,14 @@ LANGFUSE_BASE_URL = os.getenv("LANGFUSE_BASE_URL", "https://cloud.langfuse.com")
 # Application Settings
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
+# Embeddings Configuration
+EMBEDDING_PROVIDER = os.getenv("EMBEDDING_PROVIDER", "huggingface").lower()
+
+# LM Studio Configuration
+LMSTUDIO_BASE_URL = os.getenv("LMSTUDIO_BASE_URL", "http://localhost:8000")
+LMSTUDIO_EMBEDDING_MODEL = os.getenv("LMSTUDIO_EMBEDDING_MODEL", "nomic-embed-text")
+LMSTUDIO_API_KEY = os.getenv("LMSTUDIO_API_KEY", "not-needed")
+
 # Qdrant Configuration
 QDRANT_PATH = os.getenv("QDRANT_PATH", "./qdrant_db")
 QDRANT_COLLECTION_NAME = os.getenv("QDRANT_COLLECTION_NAME", "automotive_knowledge")
@@ -64,8 +72,6 @@ def validate_config():
     
     if not OPENROUTER_API_KEY:
         missing.append("OPENROUTER_API_KEY")
-    if not OPENAI_API_KEY:
-        missing.append("OPENAI_API_KEY")
     
     if missing:
         raise ValueError(

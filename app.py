@@ -222,17 +222,17 @@ with gr.Blocks(title="🔧 Asistente de Diagnóstico Automotriz") as demo:
                 
         # RIGHT PANEL - Tools & Info (40%)
         with gr.Column(scale=2):
-            # Model Selector
-            gr.Markdown("## 🤖 Configuración")
+            # Model Selector (Hidden configuration text)
+            # gr.Markdown("## 🤖 Configuración")
             
-            gr.Markdown("""
-            **Modo: Selección Automática de Modelos Gratuitos**
+            # gr.Markdown("""
+            # **Modo: Selección Automática de Modelos Gratuitos**
+            # 
+            # El sistema buscará automáticamente modelos gratuitos en OpenRouter.
+            # Si un modelo falla (error o límite de cuota), cambiará automáticamente al siguiente disponible.
+            # """)
             
-            El sistema buscará automáticamente modelos gratuitos en OpenRouter.
-            Si un modelo falla (error o límite de cuota), cambiará automáticamente al siguiente disponible.
-            """)
-            
-            model_status = gr.Markdown("ℹ️ Estado: Buscando mejor modelo gratuito...")
+            model_status = gr.Markdown("")
             
             gr.Markdown("---")
             gr.Markdown("## 🔍 Proceso del Agente")

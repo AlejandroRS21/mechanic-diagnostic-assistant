@@ -3,6 +3,7 @@ Knowledge base setup using Qdrant for vector storage.
 Handles document embedding and vector database creation/management.
 """
 
+import os
 from typing import List, Optional
 from pathlib import Path
 
@@ -91,13 +92,33 @@ class KnowledgeBase:
     def embeddings(self):
         """Lazy load embeddings to avoid loading PyTorch at startup."""
         if self._embeddings is None:
-            logger.info("Loading HuggingFace embeddings (all-MiniLM-L6-v2)...")
-            self._embeddings = HuggingFaceEmbeddings(
-                model_name="sentence-transformers/all-MiniLM-L6-v2",
-                model_kwargs={'device': 'cpu'},
-                encode_kwargs={'normalize_embeddings': True}
-            )
+            embedding_provider = os.getenv("EMBEDDING_PROVIDER", "huggingface").lower()
+            
+            if embedding_provider == "lmstudio":
+                logger.info("Loading LM Studio embeddings...")
+                try:
+                    from src.utils.lmstudio_embeddings import LMStudioEmbeddings
+                    self._embeddings = LMStudioEmbeddings()
+                    logger.info("✅ LM Studio embeddings loaded")
+                except ImportError:
+                    logger.warning("LM Studio not available, falling back to HuggingFace")
+                    self._embeddings = self._get_huggingface_embeddings()
+                except Exception as e:
+                    logger.warning(f"LM Studio error: {e}, falling back to HuggingFace")
+                    self._embeddings = self._get_huggingface_embeddings()
+            else:
+                logger.info("Loading HuggingFace embeddings (all-MiniLM-L6-v2)...")
+                self._embeddings = self._get_huggingface_embeddings()
+        
         return self._embeddings
+    
+    def _get_huggingface_embeddings(self):
+        """Get HuggingFace embeddings"""
+        return HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            model_kwargs={'device': 'cpu'},
+            encode_kwargs={'normalize_embeddings': True}
+        )
     
     def _database_exists(self) -> bool:
         """Check if the Qdrant database already exists."""

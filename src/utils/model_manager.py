@@ -2,6 +2,7 @@ import requests
 import json
 from typing import List, Dict, Optional
 from src.utils.helpers import get_logger
+from src.utils.config import OPENROUTER_MODEL
 
 logger = get_logger(__name__)
 
@@ -17,7 +18,17 @@ class ModelManager:
     def _refresh_models(self):
         """Fetch free models from OpenRouter."""
         logger.info("Fetching free models from OpenRouter...")
-        self.available_models = self.get_free_models()
+        self.available_models = []
+        
+        # Add configured model first if specified (and not default placeholder)
+        if OPENROUTER_MODEL and OPENROUTER_MODEL != "openai/gpt-4":
+            logger.info(f"Adding configured model: {OPENROUTER_MODEL}")
+            self.available_models.append({
+                "id": OPENROUTER_MODEL,
+                "name": f"{OPENROUTER_MODEL} (Configured)"
+            })
+            
+        self.available_models.extend(self.get_free_models())
         
         # Fallback if no models found
         if not self.available_models:

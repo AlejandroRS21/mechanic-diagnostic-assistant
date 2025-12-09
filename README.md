@@ -1,421 +1,252 @@
 # 🚗 Asistente Diagnóstico Automotriz
 
-Un asistente de IA inteligente que ayuda a diagnosticar problemas automotrices utilizando códigos OBD-II, síntomas del vehículo y consulta de base de conocimiento especializada.
+Asistente inteligente para diagnóstico de problemas automotrices con búsqueda de códigos OBD-II y base de conocimiento.
 
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Python](https://img.shields.io/badge/Python-3.9+-green.svg)
-![LangChain](https://img.shields.io/badge/LangChain-0.3.0-orange.svg)
-![Gradio](https://img.shields.io/badge/Gradio-6.0.0-blue.svg)
+## ✨ Características
 
----
+- **Agente ReAct** - Razonamiento automático con herramientas
+- **Códigos OBD-II** - Búsqueda en JSON + PDFs
+- **Multilingüe** - ES, EN, PT, FR
+- **Base de Conocimiento** - 538 fragmentos vectorizados
+- **Interfaz Web** - Gradio con visualización del razonamiento
 
-## 🌟 Características Principales
+## 📋 Instalación
 
-### 🤖 Agente Inteligente ReAct
-- Razonamiento automático y ejecución de herramientas
-- Diagnóstico paso a paso del problema
-- Respuestas contextualizadas basadas en el vehículo
-
-### 🔍 Diagnóstico Profesional
-- Búsqueda de códigos OBD-II (P0420, P0300, etc.)
-- Identificación de síntomas comunes
-- Generación de presupuestos de reparación
-- Cálculo de costos de mano de obra y piezas
-
-### 🌐 Soporte Multilingüe
-- Detección automática de idioma
-- Respuestas en: 🇪🇸 Español, 🇬🇧 Inglés, 🇵🇹 Portugués, 🇫🇷 Francés
-- Usuario pregunta en cualquier idioma, recibe respuesta en el mismo
-
-### 📚 Base de Conocimiento Inteligente
-- 42+ documentos especializados
-- Búsqueda semántica con Qdrant
-- Recuperación de información relevante automática
-
-### 📊 Monitoreo en Tiempo Real
-- Trazabilidad de cada interacción
-- Dashboard en Langfuse
-- Métricas de rendimiento y costos
-
-### 💻 Interfaz Web Moderna
-- Diseño limpio y responsivo con Gradio
-- Visualización del razonamiento del agente
-- Timeline de herramientas utilizadas
-- Fuentes y referencias consultadas
-
----
-
-## 🚀 Inicio Rápido
-
-### Requisitos
-- Python 3.9 o superior
-- Git
-- Conexión a internet
-
-### Instalación (2 minutos)
-
-**1. Clonar el repositorio**
 ```bash
-git clone https://github.com/AlejandroRS21/mechanic-diagnostic-assistant.git
+# Clonar repo
+git clone <repo-url>
 cd mechanic-diagnostic-assistant
-```
 
-**2. Crear entorno virtual**
-```bash
-# Windows
+# Crear venv
 python -m venv venv
-.\venv\Scripts\Activate.ps1
+source venv/Scripts/activate  # Windows: .\venv\Scripts\Activate.ps1
 
-# macOS / Linux
-python3 -m venv venv
-source venv/bin/activate
-```
-
-**3. Instalar dependencias**
-```bash
+# Instalar dependencias
 pip install -r requirements.txt
-```
 
-**4. Configurar variables de entorno**
-```bash
-# Copiar archivo ejemplo
+# Configurar variables de entorno
 cp .env.example .env
-
-# Editar .env y añadir tu clave de OpenRouter
-# Puedes obtener una gratis en: https://openrouter.ai
+# Editar .env con tu API key
 ```
 
-**5. Ejecutar la aplicación**
+### Opción: Usar LM Studio para Embeddings
+
+Para usar embeddings locales sin coste, sigue estos pasos:
+
+1. **Descargar LM Studio**
+   - Ir a https://lmstudio.ai
+   - Instalar la aplicación
+
+2. **Cargar modelo de embeddings**
+   - Abrir LM Studio
+   - Descargar: `nomic-embed-text` (recomendado, 768 dims)
+   - O: `all-MiniLM-L6-v2` (más rápido, 384 dims)
+
+3. **Configurar proyecto**
+   ```bash
+   # En .env, cambiar a:
+   EMBEDDING_PROVIDER=lmstudio
+   LMSTUDIO_BASE_URL=http://localhost:8000
+   LMSTUDIO_EMBEDDING_MODEL=nomic-embed-text
+   ```
+
+4. **Reconstruir base de datos**
+   ```bash
+   python rebuild_with_lmstudio.py
+   ```
+
+5. **Verificar configuración**
+   ```bash
+   python test_lmstudio_setup.py
+   ```
+
+**Ventajas de LM Studio:**
+- 🔒 100% privado - datos nunca salen del equipo
+- 💰 Gratis - sin costos de API
+- ⚡ Rápido - ejecución local
+- 🔧 Configurable - soporta múltiples modelos
+
+Ver [LMSTUDIO_EMBEDDINGS.md](LMSTUDIO_EMBEDDINGS.md) para documentación completa.
+
+## 🚀 Uso
+
+### Línea de Comandos
 ```bash
-python app.py
+python app.py --mode cli
 ```
 
-**6. Abrir en navegador**
-```
-http://localhost:7860
-```
-
----
-
-## 📖 Cómo Usar
-
-### Ejemplo 1: Diagnosticar por Código OBD-II
-
-**Pregunta:**
-```
-¿Qué significa el código de error P0420?
-```
-
-**Respuesta:**
-```
-El código P0420 se refiere a "Catalyst System Efficiency Below Threshold (Bank 1)".
-
-Significado:
-- El convertidor catalítico no está funcionando eficientemente
-- Hay problemas en el sistema de control de emisiones
-- La sensor de oxígeno aguas abajo detecta problemas
-
-Síntomas comunes:
-- Luz de "Check Engine" encendida
-- Pérdida de potencia del motor
-- Consumo excesivo de combustible
-
-Costo de reparación:
-- Piezas: $400 - $800 USD
-- Mano de obra: 1.5 - 2.5 horas
-
-Recomendación: Revisar el convertidor catalítico y sensor O2
-```
-
-### Ejemplo 2: Diagnosticar por Síntomas
-
-**Pregunta:**
-```
-Mi coche no enciende por las mañanas, hace un ruido extraño en el motor
-```
-
-**Respuesta:**
-```
-Basado en los síntomas descritos, posibles causas:
-
-1. Batería débil (80% de probabilidad)
-   - Revisar voltaje de batería (debe ser 12.6V en reposo)
-   - Limpiar contactos de batería
-
-2. Alternador defectuoso (15% de probabilidad)
-   - Revisar carga del alternador
-   - Comprobar diodos
-
-3. Motor de arranque débil (5% de probabilidad)
-   - Revisar conexiones
-   - Posible reemplazo necesario
-
-Pasos recomendados:
-1. Llevar a mecánico certificado
-2. Realizar prueba de batería
-3. Escanear códigos de error OBD-II
-```
-
-### Ejemplo 3: Generar Presupuesto
-
-**Pregunta:**
-```
-Necesito presupuesto para cambio de aceite, filtro de aire y pastillas de freno
-```
-
-**Respuesta:**
-```
-Presupuesto de Reparación
-━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Concepto                  Cantidad    Precio Unit.    Total
-─────────────────────────────────────────────────────────
-Cambio de aceite              1          $45.00      $45.00
-Filtro de aire                1          $25.00      $25.00
-Pastillas de freno (juego)    1          $120.00    $120.00
-Mano de obra (2.5 horas)      2.5        $85/hora   $212.50
-─────────────────────────────────────────────────────────
-SUBTOTAL                                            $402.50
-IVA (19%)                                           $76.48
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TOTAL                                              $478.98
-```
-
----
-
-## 🛠️ Herramientas Disponibles
-
-El agente tiene acceso a 5 herramientas autónomas:
-
-| Herramienta | Uso | Ejemplo |
-|---|---|---|
-| 🔍 **Buscar Código OBD** | Búsqueda de códigos de error | "¿Qué es P0420?" |
-| 💰 **Calcular Costos** | Estimación de costos de reparación | "¿Cuánto cuesta cambiar frenos?" |
-| 🔧 **Encontrar Piezas** | Búsqueda de piezas de reemplazo | "Necesito pastillas de freno" |
-| 🎯 **Problemas Conocidos** | Base de problemas comunes | "Motor no enciende" |
-| 📋 **Generar Presupuesto** | Crear presupuestos formalizados | "Dame un presupuesto de reparación" |
-
----
-
-## 📚 Documentación
-
-- **[README_TECHNICAL.md](docs/README_TECHNICAL.md)** - Documentación técnica completa (arquitectura, APIs, debugging)
-- **[INSTALLATION_GUIDE.md](docs/INSTALLATION_GUIDE.md)** - Guía de instalación detallada
-- **[TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md)** - Documentación académica
-- **[FEATURES_MULTILANGUAGE.md](docs/FEATURES_MULTILANGUAGE.md)** - Cómo funciona el soporte multilingüe
-- **[PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md)** - Resumen ejecutivo
-- **[QDRANT_IMPLEMENTATION.md](docs/QDRANT_IMPLEMENTATION.md)** - Detalles de la base de datos vectorial
-- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Índice completo de documentación
-
----
-
-## ⚙️ Configuración
-
-### Variables de Entorno
-
-Copia `.env.example` a `.env` y completa:
-
+### Interfaz Web (Gradio)
 ```bash
-# API Key de OpenRouter (obtén una gratis en https://openrouter.ai)
-OPENROUTER_API_KEY=tu_clave_aqui
-
-# Modelo a usar (auto-selecciona modelos gratuitos si es "free")
-OPENROUTER_MODEL=free
-
-# Ruta local de base de datos Qdrant
-QDRANT_PATH=./qdrant_db
-
-# Monitoreo (opcional pero recomendado)
-LANGFUSE_SECRET_KEY=tu_clave_aqui
-LANGFUSE_PUBLIC_KEY=tu_clave_aqui
-LANGFUSE_BASE_URL=https://cloud.langfuse.com
-
-# Desarrollo
-DEBUG=False
-LOG_LEVEL=INFO
+python app.py --mode web
+# Acceder a: http://localhost:7860
 ```
 
----
+### Python API
+```python
+from src.agent.mechanic_agent import MechanicAgent
 
-## 🎨 Interfaz de Usuario
-
-### Pantalla Principal
-
-```
-┌─────────────────────────────────────────────┐
-│  🚗 ASISTENTE DIAGNÓSTICO AUTOMOTRIZ        │
-├─────────────────────────────────────────────┤
-│                                             │
-│  Escribe tu pregunta aquí...                │
-│  ┌──────────────────────────────────────┐  │
-│  │ ¿Qué significa el código P0420?      │  │
-│  └──────────────────────────────────────┘  │
-│                                             │
-│  [ENVIAR]                                   │
-│                                             │
-├─────────────────────────────────────────────┤
-│  Respuesta:                                 │
-│  El código P0420 indica un problema en     │
-│  el convertidor catalítico...              │
-│                                             │
-│  🌐 Español | 🤖 GPT-4 Mini               │
-│  📚 Fuentes: repair_guides.txt             │
-│  ⏱️ Tiempo: 3.2 segundos                   │
-└─────────────────────────────────────────────┘
+agent = MechanicAgent()
+response = agent.chat("¿Qué significa P0258?")
+print(response)
 ```
 
-### Características de la UI
+## 📁 Estructura
 
-- ✅ Historial de chat persistente
-- ✅ Visualización del razonamiento del agente
-- ✅ Timeline de herramientas ejecutadas
-- ✅ Indicador de idioma detectado
-- ✅ Fuentes consultadas
-- ✅ Métricas de rendimiento
+```
+src/
+├── agent/              # Agente ReAct
+│   ├── mechanic_agent.py
+│   ├── tools.py
+│   └── prompts.py
+├── rag/                # Base de conocimiento
+│   ├── knowledge_base.py
+│   ├── retriever.py
+│   └── document_loader.py
+├── tools_impl/         # Herramientas disponibles
+│   ├── diagnostic_codes.py
+│   ├── known_issues.py
+│   ├── estimate_generator.py
+│   └── cost_calculator.py
+├── utils/              # Utilidades
+├── monitoring/         # Langfuse config
+└── __init__.py
 
----
+data/
+├── knowledge_base/
+│   ├── obd_codes.json
+│   ├── common_symptoms.json
+│   └── pdfs/          # Documentos técnicos
 
-## 🔧 Solución de Problemas
-
-### Problema: "OpenRouter API Key inválido"
-**Solución:**
-1. Obtener clave en https://openrouter.ai
-2. Verificar que esté correcta en `.env`
-3. Asegurar que tienes créditos disponibles
-
-### Problema: "Puerto 7860 ya está en uso"
-**Solución:**
-```bash
-# Cambiar puerto en app.py o usar:
-python app.py --server_port=7861
+tests/                 # Tests unitarios
 ```
 
-### Problema: "Qdrant connection failed"
-**Solución:**
-```bash
-# Reconstruir base de datos
-python -c "from src.rag.knowledge_base import initialize_knowledge_base; initialize_knowledge_base(rebuild=True)"
-```
+## 🛠 Herramientas Disponibles
 
-### Más soluciones en [README_TECHNICAL.md](docs/README_TECHNICAL.md#-troubleshooting)
-
----
-
-## 📊 Características Técnicas
-
-- **LLM:** OpenRouter API (múltiples modelos con fallback)
-- **Vector Store:** Qdrant (búsqueda semántica local)
-- **Framework:** LangChain 0.3.0 (patrón ReAct)
-- **Embeddings:** Sentence Transformers (local, sin costo)
-- **Interface:** Gradio 6.0.0 (web responsiva)
-- **Monitoreo:** Langfuse (trazabilidad completa)
-- **Lenguajes:** Python 3.9+
-
----
-
-## 🌍 Idiomas Soportados
-
-| Idioma | Código | Ejemplo |
-|---|---|---|
-| 🇪🇸 Español | `es` | "¿Qué significa P0420?" |
-| 🇬🇧 English | `en` | "What does P0420 mean?" |
-| 🇵🇹 Português | `pt` | "O que significa P0420?" |
-| 🇫🇷 Français | `fr` | "Que signifie P0420?" |
-
-El sistema detecta automáticamente el idioma y responde en el mismo.
-
----
-
-## 📈 Rendimiento
-
-| Métrica | Valor |
+| Herramienta | Descripción |
 |---|---|
-| Detección de idioma | < 10 ms |
-| Búsqueda en KB | 10-50 ms |
-| Respuesta del LLM | 2-10 seg |
-| **Respuesta Total** | **3-15 seg** |
+| `search_diagnostic_code` | Busca códigos OBD-II (P0420, P0258, etc.) |
+| `search_symptoms` | Identifica problemas por síntomas |
+| `search_known_issues` | Consulta problemas conocidos |
+| `get_repair_cost` | Calcula costos de reparación |
+| `search_knowledge_base` | Búsqueda semántica en PDFs |
 
----
+## 🔍 Búsqueda de Códigos P0XXX
 
-## 🔐 Seguridad
+### Cascada de Búsqueda (3 niveles)
 
-- ✅ No se almacenan datos personales
-- ✅ Variables sensibles en `.env` (no en git)
-- ✅ API keys validadas antes de usar
-- ✅ Queries sanitizadas
-- ✅ Logs sin información sensible
+1. **JSON Database** (~50ms)
+   - 23 códigos predefinidos
+   - Búsqueda rápida
 
----
+2. **Vector Database** (3-5s)
+   - Qdrant con embeddings
+   - Búsqueda semántica en PDFs
+
+3. **Direct PDF Search** (4-5s)
+   - Fallback directo en archivos
+   - Búsqueda por texto exacto
+
+### Ejemplo: P0258
+```python
+result = search_diagnostic_code("P0258")
+# Retorna:
+# {
+#   "found": True,
+#   "code": "P0258",
+#   "description": "Injection Pump Fuel Metering Control 'B' Low",
+#   "source": "dtc_list.pdf",
+#   "document": "dtc_list.pdf"
+# }
+```
+
+## 📊 Monitoreo
+
+El sistema registra todas las interacciones en **Langfuse**:
+- Trazabilidad de llamadas al LLM
+- Métricas de rendimiento
+- Análisis de costos
+
+Acceso: https://cloud.langfuse.com
+
+## ⚙️ Configuración (.env)
+
+```env
+# API Keys
+OPENROUTER_API_KEY=sk_...      # Para OpenRouter
+OPENAI_API_KEY=sk_...          # Para OpenAI (opcional)
+GROQ_API_KEY=gsk_...           # Para Groq (gratis)
+
+# Langfuse Monitoring
+LANGFUSE_PUBLIC_KEY=pk_...
+LANGFUSE_SECRET_KEY=sk_...
+
+# Qdrant Vector DB
+QDRANT_PATH=./qdrant_db        # Local o remoto
+QDRANT_COLLECTION_NAME=automotive_knowledge
+```
+
+## 🧪 Testing
+
+```bash
+# Test de herramientas
+python test_tool_direct.py
+
+# Test de búsqueda P0258
+python test_p0258_fallback.py
+
+# Test de RAG
+python -m pytest tests/
+```
+
+## 📝 Notas Importantes
+
+### Problemas Resueltos
+
+- ✅ **Agent Format Loop** - Errores repetidos solucionados
+- ✅ **Source Metadata** - Ahora muestra títulos correctos
+- ✅ **P0258 Search** - Fallback a PDFs implementado
+
+### Limitaciones Actuales
+
+- Respuestas pueden tardar 3-5s (búsqueda vectorial)
+- Vector DB necesita optimización de query
+- Algunas deprecation warnings de LangChain (sin impacto)
+
+### Mejoras Futuras
+
+- [ ] Caché de búsquedas
+- [ ] Búsqueda paralela de PDFs
+- [ ] Actualizar a versiones estables de LangChain
+- [ ] Soporte para conversación multi-turno
+- [ ] Más códigos OBD-II en JSON
+
+## 📖 Documentación Técnica
+
+- **TECHNICAL_DOC.md** - Arquitectura detallada
+- **TECHNICAL_DOC_PART2.md** - Implementación de RAG
+- **QDRANT_FINAL_SUMMARY.md** - Vector database setup
+- **P0258_SOLUTION_SUMMARY.md** - Implementación del fallback
 
 ## 🤝 Contribuir
 
-¿Encontraste un bug o tienes sugerencias?
+Las contribuciones son bienvenidas. Por favor:
 
-1. **Reportar bug:** Abrir [GitHub Issue](https://github.com/AlejandroRS21/mechanic-diagnostic-assistant/issues)
-2. **Sugerir mejora:** Crear [Discussion](https://github.com/AlejandroRS21/mechanic-diagnostic-assistant/discussions)
-3. **Contribuir código:** Fork → Rama feature → Pull Request
-
----
+1. Fork el proyecto
+2. Crea una rama para tu feature
+3. Commit con mensajes claros
+4. Push a la rama
+5. Abre un Pull Request
 
 ## 📄 Licencia
 
-Este proyecto está bajo licencia **MIT**. Eres libre de usarlo, modificarlo y distribuirlo.
+MIT License - Ver LICENSE para detalles
+
+## 👤 Autor
+
+Alejandro RS - [@AlejandroRS21](https://github.com/AlejandroRS21)
 
 ---
 
-## 👨‍💻 Autor
-
-**Alejandro RS21**
-
-- GitHub: [@AlejandroRS21](https://github.com/AlejandroRS21)
-- Email: alejandro.rs21@example.com
-
----
-
-## 🙏 Agradecimientos
-
-- LangChain por el excelente framework
-- Qdrant por la base de datos vectorial
-- OpenRouter por acceso a múltiples LLMs
-- Gradio por la interfaz web intuitiva
-- Langfuse por monitoreo profesional
-
----
-
-## 📞 Soporte
-
-¿Necesitas ayuda?
-
-- 📖 **Documentación:** [docs/](docs/)
-- 🐛 **Reportar bug:** [Issues](https://github.com/AlejandroRS21/mechanic-diagnostic-assistant/issues)
-- 💬 **Preguntas:** [Discussions](https://github.com/AlejandroRS21/mechanic-diagnostic-assistant/discussions)
-- 🔧 **Troubleshooting:** [Guía técnica](docs/README_TECHNICAL.md#-troubleshooting)
-
----
-
-## 🚀 Próximas Mejoras
-
-- [ ] Integración con escáneres OBD-II reales
-- [ ] API REST para integración
-- [ ] Base de datos de repuestos actualizada en tiempo real
-- [ ] Video tutoriales de reparación
-- [ ] Aplicación móvil
-- [ ] Más idiomas (Alemán, Italiano, etc.)
-- [ ] Exportación de presupuestos en PDF
-- [ ] Integración con talleres
-
----
-
-**Versión:** 1.0.0  
-**Última actualización:** Diciembre 2025  
+**Última actualización:** Diciembre 2025
 **Estado:** ✅ Producción
-
----
-
-<div align="center">
-
-**Made with ❤️ for mechanics and car enthusiasts**
-
-[⭐ Dar estrella en GitHub](https://github.com/AlejandroRS21/mechanic-diagnostic-assistant) | [📧 Contactar](mailto:alejandro.rs21@example.com) | [📚 Documentación](docs/)
-
-</div>
+**Versión:** 1.0
