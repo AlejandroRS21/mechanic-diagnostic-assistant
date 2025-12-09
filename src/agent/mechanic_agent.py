@@ -144,16 +144,16 @@ Thought:{{agent_scratchpad}}"""
             input_variables=["input", "tools", "tool_names", "agent_scratchpad", "chat_history"]
         )
         
-        # Custom parsing error message
+        # Custom parsing error message (Spanish to help the agent recover)
         parsing_error_message = (
-            "Invalid format. Please use EXACTLY this format:\n"
-            "Thought: <what to do>\n"
-            "Action: <tool name>\n"
-            "Action Input: <input>\n\n"
-            "OR if ready to answer:\n"
-            "Thought: <reasoning>\n"
-            "Final Answer: <response>\n\n"
-            "STOP after Final Answer - do not add any text."
+            "Formato inválido. Por favor usa EXACTAMENTE este formato (manteniendo las palabras en inglés):\n"
+            "Thought: <tu pensamiento>\n"
+            "Action: <nombre de la herramienta>\n"
+            "Action Input: <input para la herramienta>\n\n"
+            "O si ya tienes la respuesta:\n"
+            "Thought: <tu pensamiento>\n"
+            "Final Answer: <tu respuesta en español>\n\n"
+            "DETENTE después de Final Answer."
         )
 
         # Get Langfuse callback if available
@@ -172,7 +172,8 @@ Thought:{{agent_scratchpad}}"""
             llm=self.llm,
             agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
             verbose=verbose,
-            max_iterations=10,
+            max_iterations=20,  # Increased from 10 to 20 to prevent early termination on complex tasks
+            max_execution_time=120, # 2 minutes max time
             memory=self.memory,
             handle_parsing_errors=parsing_error_message,
             return_intermediate_steps=True,
