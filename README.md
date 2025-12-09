@@ -1,17 +1,60 @@
 # 🚗 Asistente Diagnóstico Automotriz
 
-Asistente inteligente para diagnóstico de problemas automotrices con búsqueda de códigos OBD-II y base de conocimiento.
+Un asistente de IA inteligente que ayuda a diagnosticar problemas automotrices utilizando códigos OBD-II, síntomas del vehículo y consulta de base de conocimiento especializada.
 
-## ✨ Características
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.9+-green.svg)
+![LangChain](https://img.shields.io/badge/LangChain-0.3.0-orange.svg)
+![Gradio](https://img.shields.io/badge/Gradio-6.0.0-blue.svg)
 
-- **Agente ReAct** - Razonamiento automático con herramientas
-- **Códigos OBD-II** - Búsqueda en JSON + PDFs
-- **Multilingüe** - ES, EN, PT, FR
-- **Base de Conocimiento** - 538 fragmentos vectorizados
-- **Interfaz Web** - Gradio con visualización del razonamiento
+---
 
-## 📋 Instalación
+## 🌟 Características Principales
 
+### 🤖 Agente Inteligente ReAct
+- Razonamiento automático y ejecución de herramientas
+- Diagnóstico paso a paso del problema
+- Respuestas contextualizadas basadas en el vehículo
+
+### 🔍 Diagnóstico Profesional
+- Búsqueda de códigos OBD-II (P0420, P0300, etc.)
+- Identificación de síntomas comunes
+- Generación de presupuestos de reparación
+- Cálculo de costos de mano de obra y piezas
+
+### 🌐 Soporte Multilingüe
+- Detección automática de idioma
+- Respuestas en: 🇪🇸 Español, 🇬🇧 Inglés, 🇵🇹 Portugués, 🇫🇷 Francés
+- Usuario pregunta en cualquier idioma, recibe respuesta en el mismo
+
+### 📚 Base de Conocimiento Inteligente
+- 42+ documentos especializados
+- Búsqueda semántica con Qdrant
+- Recuperación de información relevante automática
+
+### 📊 Monitoreo en Tiempo Real
+- Trazabilidad de cada interacción
+- Dashboard en Langfuse
+- Métricas de rendimiento y costos
+
+### 💻 Interfaz Web Moderna
+- Diseño limpio y responsivo con Gradio
+- Visualización del razonamiento del agente
+- Timeline de herramientas utilizadas
+- Fuentes y referencias consultadas
+
+---
+
+## 🚀 Inicio Rápido
+
+### Requisitos
+- Python 3.9 o superior
+- Git
+- Conexión a internet
+
+### Instalación (2 minutos)
+
+**1. Clonar el repositorio**
 ```bash
 # Clonar repo
 git clone <repo-url>
