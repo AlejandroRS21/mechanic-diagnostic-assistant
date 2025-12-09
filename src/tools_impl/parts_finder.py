@@ -47,16 +47,35 @@ def find_replacement_parts(vehicle: Dict[str, str], part_name: str) -> Dict:
                         if (contains_substring(compatible_vehicle, brand, case_sensitive=False) and
                             contains_substring(compatible_vehicle, model, case_sensitive=False)):
                             # Check year if specified
+                            
+                            # Check year if specified
                             if year:
-                                if year in compatible_vehicle or not any(char.isdigit() for char in year):
-                                    compatible = True
-                                    break
+                                import re
+                                # Extract years from compatible vehicle string (e.g. "Toyota Corolla 2015-2020")
+                                # Use non-capturing group for century or search for 4 digits
+                                years_in_string = re.findall(r'\b(?:19|20)\d{2}\b', compatible_vehicle)
+                                
+                                if len(years_in_string) >= 2:
+                                    # Handle range "2015-2020"
+                                    start_year = int(years_in_string[0])
+                                    end_year = int(years_in_string[1])
+                                    query_year = int(year)
+                                    if start_year <= query_year <= end_year:
+                                        compatible = True
+                                        break
+                                elif len(years_in_string) == 1:
+                                    # Exact year match
+                                    if year == years_in_string[0]:
+                                        compatible = True
+                                        break
+                                else:
+                                    # Fallback to string containment (for non-standard formats)
+                                    if year in compatible_vehicle:
+                                        compatible = True
+                                        break
                             else:
                                 compatible = True
                                 break
-                else:
-                    # No vehicle specified, show all parts that match name
-                    compatible = True
                 
                 if compatible:
                     matching_parts.append({

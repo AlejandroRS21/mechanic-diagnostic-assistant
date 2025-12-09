@@ -32,7 +32,10 @@
             "compatible_vehicles": [
                 "Toyota Corolla 2015-2020",
                 "Honda Civic 2016-2021",
-                "Nissan Sentra 2016-2020"
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020",
+                "BMW 3 Series 2015-2021"
             ],
             "warranty_months": 12
         },
@@ -68,7 +71,8 @@
             "compatible_vehicles": [
                 "Toyota Corolla 2015-2020",
                 "Honda Civic 2016-2021",
-                "Nissan Sentra 2016-2020"
+                "Nissan Sentra 2016-2020",
+                "Toyota Camry 2018-2023"
             ],
             "warranty_months": 12
         },
@@ -92,7 +96,8 @@
             "type": "Aftermarket",
             "compatible_vehicles": [
                 "Toyota Corolla 2015-2020",
-                "Honda Civic 2016-2021"
+                "Honda Civic 2016-2021",
+                "Toyota Camry 2018-2023"
             ],
             "warranty_months": 12
         },
@@ -130,7 +135,8 @@
             "compatible_vehicles": [
                 "Toyota Corolla 2015-2020",
                 "Honda Civic 2016-2021",
-                "Nissan Sentra 2016-2020"
+                "Nissan Sentra 2016-2020",
+                "Toyota Camry 2018-2023"
             ],
             "warranty_months": 12
         },
@@ -143,7 +149,8 @@
             "compatible_vehicles": [
                 "Toyota Corolla 2015-2020",
                 "Honda Civic 2016-2021",
-                "Nissan Sentra 2016-2020"
+                "Nissan Sentra 2016-2020",
+                "BMW 3 Series 2015-2021"
             ],
             "warranty_months": 12
         },
@@ -179,7 +186,8 @@
             "type": "Aftermarket",
             "compatible_vehicles": [
                 "Toyota Corolla 2015-2020",
-                "Honda Civic 2016-2021"
+                "Honda Civic 2016-2021",
+                "Toyota Camry 2018-2023"
             ],
             "warranty_months": 12
         },
@@ -214,7 +222,8 @@
             "type": "Aftermarket",
             "compatible_vehicles": [
                 "Toyota Corolla 2015-2020",
-                "Honda Civic 2016-2021"
+                "Honda Civic 2016-2021",
+                "Toyota Camry 2018-2023"
             ],
             "warranty_months": 12
         },
@@ -403,6 +412,45 @@
                 "Nissan Sentra 2016-2020"
             ],
             "warranty_months": null
+        },
+        {
+            "id": "ELEC-001",
+            "name": "Window Regulator with Motor (Front Left)",
+            "category": "Body/Electrical",
+            "price": 145.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "Nissan Sentra 2016-2020",
+                "BMW 3 Series 2015-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "ELEC-002",
+            "name": "Wiper Motor Assembly",
+            "category": "Body/Electrical",
+            "price": 110.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "BMW 3 Series 2015-2021"
+            ],
+            "warranty_months": 12
+        },
+        {
+            "id": "AC-001",
+            "name": "Blower Motor Assembly",
+            "category": "Climate Control",
+            "price": 135.00,
+            "type": "Aftermarket",
+            "compatible_vehicles": [
+                "Toyota Corolla 2015-2020",
+                "Honda Civic 2016-2021",
+                "BMW 3 Series 2015-2021"
+            ],
+            "warranty_months": 12
         }
     ]
 }

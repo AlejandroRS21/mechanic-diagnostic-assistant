@@ -523,5 +523,71 @@
       "Test check valve",
       "Inspect wiring and relay"
     ]
+  },
+  {
+    "code": "C0200",
+    "description": "Right Front Wheel Speed Sensor Circuit Malfunction",
+    "severity": "High",
+    "system": "ABS/Chassis",
+    "common_causes": [
+      "Faulty wheel speed sensor",
+      "Damaged wiring harness",
+      "Debris on sensor/tone ring",
+      "Bad wheel bearing"
+    ],
+    "typical_repair_cost_min": 150,
+    "typical_repair_cost_max": 400,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 2,
+    "diagnostic_steps": [
+      "Test sensor resistance/voltage",
+      "Inspect wiring for damage",
+      "Check tone ring condition",
+      "Scan for other ABS codes"
+    ]
+  },
+  {
+    "code": "U0100",
+    "description": "Lost Communication With ECM/PCM 'A'",
+    "severity": "Critical",
+    "system": "Network Info",
+    "common_causes": [
+      "Dead battery",
+      "Wiring harness open/short",
+      "Blown fuse for PCM",
+      "Faulty PCM"
+    ],
+    "typical_repair_cost_min": 100,
+    "typical_repair_cost_max": 1500,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 5,
+    "diagnostic_steps": [
+      "Check battery voltage",
+      "Check all PCM fuses",
+      "Inspect OBD-II connector pins",
+      "Test CAN bus resistance"
+    ]
+  },
+  {
+    "code": "P0500",
+    "description": "Vehicle Speed Sensor 'A'",
+    "severity": "Medium",
+    "system": "Drivetrain",
+    "common_causes": [
+      "Faulty speed sensor",
+      "Wiring issue",
+      "Faulty instrument cluster",
+      "PCM issue"
+    ],
+    "typical_repair_cost_min": 100,
+    "typical_repair_cost_max": 350,
+    "repair_time_hours_min": 1,
+    "repair_time_hours_max": 2,
+    "diagnostic_steps": [
+      "Test speed sensor",
+      "Check wiring continuity",
+      "Verify speedometer operation",
+      "Check drive gear for sensor"
+    ]
   }
 ]

@@ -55,13 +55,12 @@ def calculate_repair_cost(parts: List[str], labor_hours: float) -> Dict:
                     "type": found_part["type"]
                 })
             else:
-                logger.warning(f"Part not found: {part_id}")
-                parts_details.append({
-                    "id": part_id,
-                    "name": "Unknown part",
-                    "price": 0.0,
-                    "type": "Not Found"
-                })
+                # If part not found, we CANNOT calculate a realistic cost.
+                # Return an error to force the agent to find the part first.
+                return {
+                    "error": f"Part '{part_id}' not found in catalog. You MUST use 'find_replacement_parts' tool first to get valid Part IDs (e.g., 'BRK-001') before calculating cost.",
+                    "grand_total": 0.0
+                }
         
         # Calculate labor cost
         labor_cost = labor_hours * hourly_rate

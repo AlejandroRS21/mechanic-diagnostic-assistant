@@ -580,5 +580,96 @@
             "Is there grease on the inside of the wheel?",
             "Which side does the noise come from?"
         ]
+    },
+    {
+        "symptom": "Power window not working",
+        "severity": "Low",
+        "category": "Body/Electrical",
+        "possible_causes": [
+            {
+                "cause": "Bad window switch",
+                "probability": 40
+            },
+            {
+                "cause": "Failed window regulator/motor",
+                "probability": 35
+            },
+            {
+                "cause": "Blown fuse",
+                "probability": 15
+            },
+            {
+                "cause": "Broken wire in door jamb",
+                "probability": 10
+            }
+        ],
+        "diagnostic_questions": [
+            "Do any other windows work?",
+            "Can you hear the motor trying to move?",
+            "Did it make crunching noises before failing?",
+            "Does the master switch control it?"
+        ]
+    },
+    {
+        "symptom": "Windshield wipers not working",
+        "severity": "Medium",
+        "category": "Body/Electrical",
+        "possible_causes": [
+            {
+                "cause": "Blown fuse",
+                "probability": 30
+            },
+            {
+                "cause": "Faulty wiper motor",
+                "probability": 25
+            },
+            {
+                "cause": "Bad wiper switch/stalk",
+                "probability": 20
+            },
+            {
+                "cause": "Loose linkage",
+                "probability": 15
+            },
+            {
+                "cause": "Faulty rain sensor",
+                "probability": 10
+            }
+        ],
+        "diagnostic_questions": [
+            "Do the washers work?",
+            "Try all speeds - do any work?",
+            "Can you hear the motor humming?",
+            "Is there heavy snow/ice blocking them?"
+        ]
+    },
+    {
+        "symptom": "Headlights dim or flickering",
+        "severity": "Medium",
+        "category": "Electrical",
+        "possible_causes": [
+            {
+                "cause": "Failing alternator",
+                "probability": 40
+            },
+            {
+                "cause": "Loose battery connections",
+                "probability": 30
+            },
+            {
+                "cause": "Poor ground connection",
+                "probability": 20
+            },
+            {
+                "cause": "Old bulbs",
+                "probability": 10
+            }
+        ],
+        "diagnostic_questions": [
+            "Does it happen at idle or while driving?",
+            "Do dash lights also flicker?",
+            "Is the battery light on?",
+            "Does it change when you rev the engine?"
+        ]
     }
 ]

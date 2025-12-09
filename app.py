@@ -298,6 +298,10 @@ with gr.Blocks(title="🔧 Asistente de Diagnóstico Automotriz") as demo:
                 ["Check engine encendido, ralentí irregular, Toyota Camry 2019"],
                 ["¿Cuáles son los problemas comunes del Honda Civic 2020?"],
                 ["Necesito presupuesto para cambio de pastillas de freno en Nissan Sentra 2017"],
+                ["BMW 3 Series 2017 huele a aceite quemado y hay mancha en el suelo"],
+                ["Código U0100 en Honda Civic 2018, no arranca"],
+                ["Ventana del conductor no baja, BMW 3 Series 2017"],
+                ["Mis limpiaparabrisas no funcionan en mi Toyota Corolla"]
             ],
             inputs=msg_input,
             label="Haz clic en un ejemplo para probarlo"

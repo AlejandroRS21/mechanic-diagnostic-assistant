@@ -225,29 +225,39 @@ Thought:{{agent_scratchpad}}"""
         """
         logger.info(f"Processing message: {message[:100]}...")
         
-        # Detect language of user input
-        detected_language = LanguageDetector.detect_language(message)
-        language_name = LanguageDetector.get_language_name(detected_language)
-        language_instruction = LanguageInstructions.get_language_instruction(detected_language)
-        logger.info(f"Detected language: {language_name} ({detected_language})")
+        # HARDCODED SPANISH CONFIGURATION PER USER REQUEST
+        # We ignore detection and force Spanish for everything.
+        language_name = "Spanish"
+        strong_instruction = (
+            "IMPORTANTE: DEBES responder SIEMPRE en ESPAÑOL. "
+            "TRADUCE tu respuesta final y explicaciones.\n"
+            "CRITICO: NO TRADUZCAS LOS COMANDOS DEL PROTOCOLO.\n"
+            "MANTÉN 'Thought:', 'Action:', 'Action Input:', y 'Final Answer:' EXACTAMENTE EN INGLÉS.\n"
+            "Ejemplo correcto:\n"
+            "Thought: He encontrado el problema.\n"
+            "Final Answer: El problema es..."
+        )
+        
+        logger.info(f"Forcing language: {language_name}")
         
         # Augment input with knowledge base context if relevant
         # (Check if message contains keywords that should trigger KB search)
         kb_context = ""
         sources = []
+        # Keywords list kept broad to catch english terms too just in case
         keywords = ["code", "P0", "symptom", "noise", "leak", "problem", "issue", "manual", "guide", "pdf",
                    "código", "síntoma", "ruido", "fuga", "problema", "asunto", "manual",  # Spanish
                    "código", "sintoma", "barulho", "vazamento", "problema", "manual",  # Portuguese
                    "code", "symptôme", "bruit", "fuite", "problème", "manuel"]  # French
+
         if any(keyword in message.lower() for keyword in keywords):
             logger.info("Augmenting with knowledge base context...")
             kb_context, sources = self.consult_knowledge_base(message)
         
-        # Prepare full input with language instruction
         if kb_context:
-            full_input = f"{message}\n\nRelevant knowledge base information:\n{kb_context}\n\n[SYSTEM: {language_instruction}]"
+            full_input = f"{message}\n\nInformación relevante de la base de conocimientos:\n{kb_context}\n\n[SISTEMA: {strong_instruction}]"
         else:
-            full_input = f"{message}\n\n[SYSTEM: {language_instruction}]"
+            full_input = f"{message}\n\n[SISTEMA: {strong_instruction}]"
         
         # Retry loop for model failover
         max_retries = 3

@@ -12,6 +12,32 @@ logger = get_logger(__name__)
 # Mock database of known vehicle-specific issues
 # In a real application, this would be a more comprehensive database
 KNOWN_ISSUES_DATABASE = {
+    "Toyota Camry": {
+        "years": "2018-2024",
+        "common_issues": [
+            {
+                "issue": "Fuel pump recall (low pressure)",
+                "frequency": "Common",
+                "typical_mileage": "10,000-50,000 miles",
+                "symptoms": ["Check engine light", "Rough idle", "Stalling", "Car won't start"],
+                "note": "Major recall affecting many 2018-2019 models"
+            },
+            {
+                "issue": "8-speed transmission hesitation/jerky shifting",
+                "frequency": "Common",
+                "typical_mileage": "0-60,000 miles",
+                "symptoms": ["Jerky shifting", "Hesitation from stop", "Rough gear changes"],
+                "note": "TSB update available for transmission control module"
+            },
+            {
+                "issue": "Premature ignition coil failure",
+                "frequency": "Moderate",
+                "typical_mileage": "60,000-90,000 miles",
+                "symptoms": ["Misfire", "Check engine light flashing", "Rough running"],
+                "note": "Often affects cylinder 4 first"
+            }
+        ]
+    },
     "Toyota Corolla": {
         "years": "2015-2020",
         "common_issues": [
@@ -118,6 +144,32 @@ KNOWN_ISSUES_DATABASE = {
                 "typical_mileage": "60,000-100,000 miles",
                 "symptoms": ["Coolant leak", "Overheating", "Squealing noise"],
                 "note": "Regular coolant system maintenance recommended"
+            }
+        ]
+    },
+    "BMW 3 Series": {
+        "years": "2015-2021",
+        "common_issues": [
+            {
+                "issue": "Oil filter housing leak",
+                "frequency": "Common",
+                "typical_mileage": "60,000-80,000 miles",
+                "symptoms": ["Burning oil smell", "Oil puddle", "Low oil level"],
+                "note": "Gasket degrades over time, requires intake removal"
+            },
+            {
+                "issue": "Coolant expansion tank crack",
+                "frequency": "Common",
+                "typical_mileage": "70,000+ miles",
+                "symptoms": ["Low coolant warning", "White residue in engine bay", "Overheating"],
+                "note": "Plastic becomes brittle with heat cycles"
+            },
+            {
+                "issue": "Blower motor failure",
+                "frequency": "Moderate",
+                "typical_mileage": "80,000-120,000 miles",
+                "symptoms": ["No air from vents", "Squeaking noise from dash", "AC stops blowing"],
+                "note": "Resistor may also fail"
             }
         ]
     }
